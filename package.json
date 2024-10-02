@@ -10,6 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.5",
-    "npx": "^10.2.2"
+    "jsonwebtoken": "^9.0.2",
+    "npx": "^10.2.2",
+    "otp-generator": "^4.0.1",
+    "react-router-dom": "^6.26.2"
   }
 }
