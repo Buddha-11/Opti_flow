@@ -5,6 +5,7 @@ import Home from './pages/Home.js'
 import SignupForm from './pages/SignupForm.js'
 import LoginForm from './pages/LoginForm.js'
 import MyForm from "./pages/Form.js";
+import ForgotForm from './pages/ForgotPassword.js'
 
 
 function App() {
@@ -30,6 +31,10 @@ function App() {
             <Route
              path="/sendEmail" 
              element={<MyForm />} 
+             />
+              <Route
+             path="/forgot_password" 
+             element={<ForgotForm />} 
              />
           
             

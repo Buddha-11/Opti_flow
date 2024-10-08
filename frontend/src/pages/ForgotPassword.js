@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/user';
 import '../index.css';
 
-const SignupForm = () => {
+const ForgotForm = () => {
   const [email, setEmail] = useState('');
   const { toggle, setUsername1 } = useContext(UserContext);
   const [username, setUsername] = useState('');
@@ -27,8 +27,8 @@ const SignupForm = () => {
     const auth = { email, username, password };
 
     try {
-      const response = await fetch('/api/signup', {
-        method: 'POST',
+      const response = await fetch('/api/forgot_password', {
+        method: 'PATCH',
         body: JSON.stringify(auth),
         headers: {
           'Content-Type': 'application/json',
@@ -45,8 +45,9 @@ const SignupForm = () => {
         setEmail('');
         setUsername('');
         setPassword('');
-        navigate('/');
-        console.log('Signup successful:', json);
+        navigate('/login');
+        console.log('Password changed successfully:', json);
+
       }
     } catch (err) {
       console.error('Request failed:', err);
@@ -94,7 +95,7 @@ const SignupForm = () => {
 
   return (
     <form className="create" onSubmit={handleSubmit}>
-      <h3>Sign-Up</h3>
+      <h3>Forgot Password</h3>
 
       <label>Email:</label>
       <input
@@ -112,7 +113,7 @@ const SignupForm = () => {
       />
       {errors.username && <div className="error">{errors.username}</div>}
 
-      <label>Password:</label>
+      <label>New Password:</label>
       <input
         type="password"
         onChange={(e) => setPassword(e.target.value)}
@@ -145,9 +146,8 @@ const SignupForm = () => {
       {errors.form && <div className="error">{errors.form}</div>}
 
       <a href="./login">Login</a>
-      <a href="./forgot_password">forgot password</a>
     </form>
   );
 };
 
-export default SignupForm;
+export default ForgotForm;
