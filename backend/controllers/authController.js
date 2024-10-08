@@ -171,6 +171,29 @@ module.exports.forgot_password_patch = async (req, res) => {
   }
 }
 
+module.exports.update_profile_patch = async (req, res) => {
+  const { username, designation } = req.body;
+  const userId = req.user._id; // Assuming you have user ID from the session or JWT
+  console.log(userId)
+  try {
+    // Update the user with the new name and designation
+    const user = await User.findByIdAndUpdate(userId, { username, designation }, { new: true, runValidators: true });
+
+    if (!user) {
+      return res.status(404).json({ errors: { general: 'User not found' } });
+    }
+
+    
+    // const token = createToken(user._id);
+    // res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+
+    res.status(200).json({ user: user._id });
+  }
+  catch (err) {
+    const errors = handleErrors(err);
+    res.status(400).json({ errors });
+  }
+}
 module.exports.logout_get = (req, res) => {
   res.cookie('jwt', '', { maxAge: 1 });
   res.redirect('/');
