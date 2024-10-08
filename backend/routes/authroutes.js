@@ -14,6 +14,6 @@ router.get('/login_admin', authController.loginAdmin_post);
 router.get('/', requireAuth, (req, res) => {
     res.json('You have successfully accessed the protected route!');
   });
-router.post('/forgot_password',authController.forgot_password_patch)
+router.patch('/forgot_password',authController.forgot_password_patch)
 
 module.exports = router;
