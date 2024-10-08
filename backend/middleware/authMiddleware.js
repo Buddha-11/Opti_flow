@@ -11,14 +11,14 @@ const requireAuth = (req, res, next) => {
       if (err) {
         console.log(err.message);
         
-        res.render('./login');
+        //res.render('./login');
       } else {
         console.log(decodedToken);
         next();
       }
     });
   } else {
-    res.render('./login');
+    //res.render('./login');
   }
 };
 
@@ -41,6 +41,44 @@ const checkUser = (req, res, next) => {
     next();
   }
 };
+// const requireAdminAuth = async (req, res, next) => {
+//   // Gets the token from cookies or Authorization header
+//   console.log(req.cookies)
+//   const token = req.cookies?.jwt || (req.headers.authorization && req.headers.authorization.split(' ')[1]);
+//     if (!token) {
+//       return res.status(401).json({ error: 'Authorization token required' });
+//     }
+  
+//   try {
+//     let user;
+//     jwt.verify(token, 'net ninja secret', async (err, decodedToken) => {
+//       if (err) {
+//         res.locals.user = null;
+//       } else {
+//          user = await User.findById(decodedToken.id);
+//         res.locals.user = user;
+//       }
+//     });
+//     // const { _id } = jwt.verify(token, 'net ninja secret'); 
+//     // // Find the user by ID and stores their __id and admin fields in user
+//     console.log(user._id);
+//     // const user = await User.findOne({ _id }).select('_id admin');  
+//     if (!user) {
+//       return res.status(401).json({ error: 'User not found' });
+//     }
+//     // If the user is not an admin access is denied
+//     if (!user.admin) {
+//         console.log(user._id);
+//         console.log(user.admin);
+//       return res.status(403).json({ error: 'Access denied: Admins only' });
+//     }
+//     req.user = user;
+//     req.userId = user._id;
+//     next();
+//   } catch (error) {
+//     console.log(error);
+//     res.status(401).json({ error: 'Request is not authorized' });
+//   }
+// };
 
-
-module.exports = { requireAuth, checkUser};
+module.exports = { requireAuth, checkUser };

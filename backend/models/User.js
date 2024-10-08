@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
+const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -23,7 +24,14 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Please enter a password'],
     minlength: [6, 'Minimum password length is 6 characters'],
   },
-
+  admin:{
+    type:Boolean,
+    default:false,
+  },
+  designation: {
+    type: String ,
+    required:true,
+  }
 });
 
 
@@ -54,6 +62,35 @@ userSchema.statics.login = async function(email, password) {
 
   return user; 
 };
+
+
+// static signup method
+userSchema.statics.signup = async function(email, username  ,password ,admin, designation) {
+  console.log(email, username , designation ,password ,admin);
+  // validation
+  if (!email || !password || !username || !designation) {
+    throw Error('All fields must be filled')
+  }
+  if (!validator.isEmail(email)) {
+    throw Error('Email not valid')
+  }
+  if (!validator.isStrongPassword(password)) {
+    throw Error('Password not strong enough')
+  }
+
+  const exists = await this.findOne({ email })
+
+  if (exists) {
+    throw Error('Email already in use')
+  }
+
+  // const salt = await bcrypt.genSalt(10)
+  // const hash = await bcrypt.hash(password, salt)
+
+  const user = await this.create({ email, username , password,admin ,designation})
+
+  return user
+}
 const User = mongoose.model('user', userSchema);
 
 module.exports = User;
