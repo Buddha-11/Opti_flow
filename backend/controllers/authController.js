@@ -138,7 +138,38 @@ module.exports.login_post = async (req, res) => {
 
 }
 
+module.exports.forgot_password_patch = async (req, res) => {
+  const { email, password } = req.body;
 
+  try {
+    // Verify if the user exists with the provided details
+    const user = await User.findOne({ email});
+    if (!password) {
+      return res.status(400).json({ errors: { password: 'Password is required' } });
+    }
+    if (!user) {
+      return res.status(404).json({ errors: { general: 'User not found with these credentials' } });
+    }
+
+    // Hash the new password
+    // const salt = await bcrypt.genSalt();
+    // const has, username, designation hedPassword = await bcrypt.hash(password, salt);
+
+    // Update the user's password
+    user.password = password;
+    console.log(user.password)
+    await user.save();
+    res.cookie('jwt', '', { maxAge: 1 });
+    console.log('success')
+    // Respond with success
+     return res.status(200).json({ message: 'Password updated successfully' });
+    
+    
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ errors: { general: 'Something went wrong' } });
+  }
+}
 
 module.exports.logout_get = (req, res) => {
   res.cookie('jwt', '', { maxAge: 1 });
