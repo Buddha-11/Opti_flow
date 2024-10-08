@@ -63,10 +63,10 @@ module.exports.login_get = (req, res) => {
 
 
 module.exports.signup_post = async (req, res) => {
-  const { email, username, password } = req.body;
+  const { email, username, password , designation } = req.body;
 
   try {
-    const user = await User.create({ email,username, password });
+    const user = await User.create({ email,username, password , designation});
     const token = createToken(user._id);
     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(201).json({ user: user._id, username: user.username });
@@ -77,6 +77,50 @@ module.exports.signup_post = async (req, res) => {
   }
  
 }
+
+module.exports.signupAdmin_post = async (req, res) => {
+  const { email, password ,username , designation } = req.body;
+  const admin=true;
+  try {
+    const user = await User.signup(email, username ,password,admin , designation);
+
+    // Create a token and storing it in a cookie
+    const token = createToken(user._id);
+    res.cookie('jwt', token, {
+      httpOnly: true, 
+      maxAge:  24 * 60 * 60 * 1000 // 1 days duration of the cookie
+    });
+
+    res.status(200).json({ email, token });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports.loginAdmin_post = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.login(email, password  );
+    if (!user.admin) {
+      console.log(user._id);
+      console.log(user.admin);
+    return res.status(403).json({ error: 'Access denied: Admins only' });
+  }
+    // Create a token and storing it in a cookie
+    const token = createToken(user._id);
+    res.cookie('jwt', token, {
+      httpOnly: true,
+      sameSite: 'Lax', // Allows cookies for cross-origin requests
+      secure: false, 
+      maxAge:24 * 60 * 60 * 1000 // 1 days duration of the cookie
+    });
+    console.log(res.cookie);
+    res.status(200).json({ email, token });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 module.exports.login_post = async (req, res) => {
   const {email, password } = req.body;
