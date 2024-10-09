@@ -8,6 +8,7 @@ import MyForm from "./pages/Form.js";
 import ForgotForm from './pages/ForgotPassword.js'
 import AdminSignupForm from './pages/SignupAdmin.js'
 import AdminLoginForm from './pages/AdminLogin.js'
+import ProfileUpdate from './pages/UpdateProfile.js'
 
 
 function App() {
@@ -45,6 +46,10 @@ function App() {
               <Route
              path="/login_admin" 
              element={<AdminLoginForm />} 
+             />
+             <Route
+             path="/update_profile" 
+             element={<ProfileUpdate />} 
              />
           
             
