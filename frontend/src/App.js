@@ -1,24 +1,23 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import './index.css'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import './index.css';
 // pages & components
-import Home from './pages/Home.js'
-import SignupForm from './pages/SignupForm.js'
-import LoginForm from './pages/LoginForm.js'
+import Home from './pages/Home.js';
+import SignupForm from './pages/SignupForm.js';
+import LoginForm from './pages/LoginForm.js';
 import MyForm from "./pages/Form.js";
 import ForgotForm from './pages/ForgotPassword.js'
 import AdminSignupForm from './pages/SignupAdmin.js'
 import AdminLoginForm from './pages/AdminLogin.js'
 import ProfileUpdate from './pages/UpdateProfile.js'
-
+import ProtectedAdminRoute from './components/ProtectedAdminRoute'; 
 
 function App() {
-
   return (
     <div className="App">
       <BrowserRouter>
-      
-        <div className="pages">
+              <div className="pages">
           <Routes>
+
             <Route 
               path="/" 
               element={<Home />} 
@@ -51,8 +50,15 @@ function App() {
              path="/update_profile" 
              element={<ProfileUpdate />} 
              />
-          
-            
+            <Route 
+              path="/signup_admin" 
+              // element={<ProtectedAdminRoute element={<AdminSignupForm />} />}
+              element={<AdminSignupForm />} 
+            />
+            <Route 
+              path="/login_admin" 
+              element={<AdminLoginForm />} 
+            />
           </Routes>
         </div>
       </BrowserRouter>
