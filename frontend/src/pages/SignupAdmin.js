@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/user';
 import '../index.css';
 
-const SignupForm = () => {
+const AdminSignupForm = () => {
   const [email, setEmail] = useState('');
   const { toggle, setUsername1 } = useContext(UserContext);
   const [username, setUsername] = useState('');
@@ -32,7 +32,7 @@ const SignupForm = () => {
     const auth = { email, username, password, designation }; // Added designation
 
     try {
-      const response = await fetch('/api/signup', {
+      const response = await fetch('/api/signup_admin', {
         method: 'POST',
         body: JSON.stringify(auth),
         headers: {
@@ -99,7 +99,7 @@ const SignupForm = () => {
 
   return (
     <form className="create" onSubmit={handleSubmit}>
-      <h3>Sign-Up</h3>
+      <h3>Admin Sign-Up</h3>
 
       <label>Email:</label>
       <input
@@ -163,4 +163,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default AdminSignupForm;

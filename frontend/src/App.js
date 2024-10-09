@@ -6,6 +6,8 @@ import SignupForm from './pages/SignupForm.js'
 import LoginForm from './pages/LoginForm.js'
 import MyForm from "./pages/Form.js";
 import ForgotForm from './pages/ForgotPassword.js'
+import AdminSignupForm from './pages/SignupAdmin.js'
+import AdminLoginForm from './pages/AdminLogin.js'
 
 
 function App() {
@@ -35,6 +37,14 @@ function App() {
               <Route
              path="/forgot_password" 
              element={<ForgotForm />} 
+             />
+              <Route
+             path="/signup_admin" 
+             element={<AdminSignupForm />} 
+             />
+              <Route
+             path="/login_admin" 
+             element={<AdminLoginForm />} 
              />
           
             
