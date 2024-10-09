@@ -52,7 +52,7 @@ const ProfileUpdate = () => {
   };
 
   return (
-    <form className="update" onSubmit={handleSubmit}>
+    <form className="create" onSubmit={handleSubmit}>
       <h3>Update Profile</h3>
 
       <label>Username:</label>
