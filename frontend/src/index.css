@@ -65,24 +65,27 @@ body {
 .create button:hover {
   background-color: #0056b3; /* Darker blue on hover */
 }
-
 /* Login and Forgot Password Links */
 .extra-options {
-  display: flex; /* Align buttons horizontally */
-  justify-content: center; /* Center the options */
-  margin-top: 20px; /* Space above */
+  display: flex; 
+  justify-content: center;  /* Center the items */
+  align-items: center;      /* Align items vertically in the center */
+  margin-top: 20px; 
+  gap: 15px;                /* Add space between links */
 }
 
-.extra-options a {
-  color: #ffffff; /* White color for links */
-  text-decoration: none; /* No underline */
-  font-size: 16px; /* Increase font size for visibility */
-  margin: 0 10px; /* Space between links */
-  transition: color 0.3s ease; /* Smooth transition */
+.create a {
+  color: #ffffff; 
+  text-decoration: none; 
+  font-size: 1rem; 
+  padding: 8px 12px;       /* Add padding for clickable area */
+  border-radius: 5px;      /* Rounded corners */
+  background-color: transparent; /* Transparent background */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
 }
 
-.extra-options a:hover {
-  color: #007bff; /* Change color on hover */
+.create a:hover {
+  color: #ffffff;          /* Keep text color on hover */
 }
 
 /* OTP Verification Section */
