@@ -10,7 +10,7 @@ router.get('/login', authController.login_get);
 router.post('/login', authController.login_post);
 router.get('/logout', authController.logout_get);
 router.post('/signup_admin',authController.signupAdmin_post);
-router.get('/login_admin', authController.loginAdmin_post);
+router.post('/login_admin', authController.loginAdmin_post);
 router.get('/', requireAuth, (req, res) => {
     res.json('You have successfully accessed the protected route!');
   });
