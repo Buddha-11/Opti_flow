@@ -42,11 +42,13 @@ const handleErrors = (err) => {
 
 // create json web token
 const maxAge = 3 * 24 * 60 * 60;
-const createToken = (id) => {
-  return jwt.sign({ id }, 'net ninja secret', {
+const createToken = (user) => {
+  console.log(user._id, user.admin)
+  return jwt.sign({ id: user._id, admin: user.admin }, 'net ninja secret', {
     expiresIn: maxAge
   });
 };
+
 
 
 
@@ -67,7 +69,7 @@ module.exports.signup_post = async (req, res) => {
 
   try {
     const user = await User.create({ email,username, password , designation});
-    const token = createToken(user._id);
+    const token = createToken(user);
     res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(201).json({ user: user._id, username: user.username });
   }
@@ -85,9 +87,9 @@ module.exports.signupAdmin_post = async (req, res) => {
     const user = await User.signup(email, username ,password,admin , designation);
 
     // Create a token and storing it in a cookie
-    const token = createToken(user._id);
+    const token = createToken(user);
     res.cookie('jwt', token, {
-      httpOnly: true, 
+      httpOnly: false, 
       maxAge:  24 * 60 * 60 * 1000 // 1 days duration of the cookie
     });
 
@@ -108,9 +110,9 @@ module.exports.loginAdmin_post = async (req, res) => {
     return res.status(403).json({ error: 'Access denied: Admins only' });
   }
     // Create a token and storing it in a cookie
-    const token = createToken(user._id);
+    const token = createToken(user);
     res.cookie('jwt', token, {
-      httpOnly: true,
+      httpOnly: false,
       sameSite: 'Lax', // Allows cookies for cross-origin requests
       secure: false, 
       maxAge:24 * 60 * 60 * 1000 // 1 days duration of the cookie
@@ -127,8 +129,8 @@ module.exports.login_post = async (req, res) => {
 
   try {
     const user = await User.login(email, password);
-    const token = createToken(user._id);
-    res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+    const token = createToken(user);
+    res.cookie('jwt', token, { httpOnly: false, maxAge: maxAge * 1000 });
     res.status(200).json({ user: user._id, username: user.username });
   } 
   catch (err) {

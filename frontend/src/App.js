@@ -8,7 +8,7 @@ import MyForm from "./pages/Form.js";
 import ForgotForm from './pages/ForgotPassword.js';
 import AdminSignupForm from './pages/SignupAdmin.js';
 import AdminLoginForm from './pages/AdminLogin.js';
-import ProtectedAdminRoute from './components/ProtectedAdminRoute'; 
+import ProtectedRoute from './components/ProtectedRoute.js'; 
 
 function App() {
   return (
@@ -16,17 +16,19 @@ function App() {
       <BrowserRouter>
         <div className="pages">
           <Routes>
-            <Route path="/" element={<Home />} />
+            {/* Protect the home route */}
+            <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+
+            {/* Public routes */}
             <Route path="/signup" element={<SignupForm />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/sendEmail" element={<MyForm />} />
             <Route path="/forgot_password" element={<ForgotForm />} />
             
-          
+            {/* Admin-only protected routes */}
             <Route 
               path="/signup_admin" 
-              // element={<ProtectedAdminRoute element={<AdminSignupForm />} />}
-              element={<AdminSignupForm />} 
+              element={<ProtectedRoute adminOnly={true}><AdminSignupForm /></ProtectedRoute>} 
             />
             <Route 
               path="/login_admin" 
