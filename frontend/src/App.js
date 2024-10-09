@@ -10,7 +10,7 @@ import AdminSignupForm from './pages/SignupAdmin.js'
 import AdminLoginForm from './pages/AdminLogin.js'
 import ProfileUpdate from './pages/UpdateProfile.js'
 import ProtectedRoute from './components/ProtectedRoute.js'; 
-
+import Logout from './pages/Logout.js';
 function App() {
   return (
     <div className="App">
@@ -38,6 +38,10 @@ function App() {
             <Route 
               path="/update_profile" 
               element={<ProfileUpdate />} 
+            />
+            <Route 
+              path="/logout" 
+              element={<Logout/>} 
             />
           </Routes>
         </div>
