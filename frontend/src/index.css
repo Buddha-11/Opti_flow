@@ -221,3 +221,67 @@ body {
     margin-bottom: 10px; /* Add bottom margin for better spacing */
   }
 }
+
+
+/* Profile Container */
+.profile {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9; /* Light background for the profile section */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  text-align: center; /* Center align text */
+}
+
+/* Heading Style */
+.profile h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333; /* Dark text for the heading */
+  font-family: 'Arial', sans-serif;
+}
+
+/* Paragraph Styles for User Info */
+.profile p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #555; /* Slightly lighter text for the info */
+  font-family: 'Arial', sans-serif;
+}
+
+/* Bold styling for labels like Username and Designation */
+.profile p strong {
+  color: #222; /* Darker color for the labels */
+}
+
+/* Error Message Style */
+.error {
+  color: #e74c3c; /* Red color for error messages */
+  background-color: #fcecec; /* Light red background for emphasis */
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+/* Loading State */
+.loading {
+  font-size: 1.5rem;
+  color: #777;
+}
+
+/* Media Query for Responsiveness */
+@media (max-width: 768px) {
+  .profile {
+    padding: 15px;
+  }
+
+  .profile h2 {
+    font-size: 1.5rem;
+  }
+
+  .profile p {
+    font-size: 1rem;
+  }
+}

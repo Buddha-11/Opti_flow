@@ -11,6 +11,7 @@ import AdminLoginForm from './pages/AdminLogin.js'
 import ProfileUpdate from './pages/UpdateProfile.js'
 import ProtectedRoute from './components/ProtectedRoute.js'; 
 import Logout from './pages/Logout.js';
+import Profile from './pages/Profile.js';
 function App() {
   return (
     <div className="App">
@@ -42,6 +43,10 @@ function App() {
             <Route 
               path="/logout" 
               element={<Logout/>} 
+            />
+            <Route 
+              path="/profile" 
+              element={<Profile/>} 
             />
           </Routes>
         </div>
