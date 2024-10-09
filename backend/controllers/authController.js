@@ -44,7 +44,7 @@ const handleErrors = (err) => {
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (user) => {
   console.log(user._id, user.admin,user)
-  return jwt.sign({ id: user._id, admin: user.admin ,user:user}, 'net ninja secret', {
+  return jwt.sign({ id: user._id, admin: user.admin ,designation:user.designation,username:user.username}, 'net ninja secret', {
     expiresIn: maxAge
   });
 };
