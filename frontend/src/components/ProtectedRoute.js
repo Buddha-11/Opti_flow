@@ -1,18 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { UserContext } from '../context/user';
 import {jwtDecode} from 'jwt-decode'; // Ensure the correct import
 
 const ProtectedRoute = ({ children, adminOnly = false }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(true); // New loading state
-  const { setUser } = useContext(UserContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     console.log("ProtectedRoute useEffect running");
 
-    // Function to handle token decoding and state setting
     const handleToken = () => {
       const token = document.cookie.split('; ').find(row => row.startsWith('jwt='));
       console.log('Token found in cookie:', token);
@@ -23,8 +20,7 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
           const decoded = jwtDecode(tokenValue);
           console.log('Decoded token:', decoded);
 
-          // Update the user context and states
-          setUser({ _id: decoded.id, admin: decoded.admin });
+          // Set authentication and admin status
           setIsAuthenticated(true);
           setIsAdmin(decoded.admin); // Update admin status
           
@@ -38,35 +34,33 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
         setIsAuthenticated(false);
       }
 
-      // Set loading to false after processing is done
+      // Set loading to false after processing
       setLoading(false);
     };
 
-    // Call the function to handle the token decoding and state update
+    // Decode the token and update the states
     handleToken();
-  }, [setUser]); // Only setUser needs to be in the dependency array
+  }, []); // Empty dependency array since nothing is being passed from props
 
-  // Log state during rendering
-  console.log("Render: isAdmin:", isAdmin, "isAuthenticated:", isAuthenticated);
-
-  // If loading, don't render anything yet
+  // Render loading state if processing token
   if (loading) {
     return <div>Loading...</div>; // Or a loading spinner
   }
 
-  // Redirect to /login_admin if it's an admin-only route but user isn't an admin
+  // Redirect to /login_admin if the route is admin-only but user isn't an admin
   if (adminOnly && !isAdmin) {
     console.log("Admin-only route, but user is not an admin. Redirecting to /login_admin");
     return <Navigate to="/login_admin" />;
   }
 
-  // Redirect to /login if the user is not authenticated
+  // Redirect to /login if user is not authenticated
   if (!isAuthenticated) {
     console.log("User not authenticated, redirecting to /login");
     return <Navigate to="/login" />;
   }
 
-  return children; // Render the protected children if authenticated
+  // Render children if authenticated
+  return children;
 };
 
 export default ProtectedRoute;

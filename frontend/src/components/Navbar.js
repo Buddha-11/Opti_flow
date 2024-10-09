@@ -17,6 +17,7 @@ const Navbar = () => {
             <Link to="/">Logout</Link>
             <h3>{username1}</h3>
             <Link to="/profile">Profile</Link>
+            <Link to="/update_profile">Update Profile</Link>
           </div>
       
       </div>

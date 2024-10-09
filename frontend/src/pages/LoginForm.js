@@ -2,7 +2,7 @@ import { useContext, useState } from 'react'
 // import '../index.css'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/user'
-
+import { Link } from 'react-router-dom';
 const LoginForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -68,7 +68,7 @@ const LoginForm = () => {
       {errors.password && <div className="error">{errors.password}</div>}
 
       <button>Login</button>
-
+      <Link to="/signup">Signup</Link>
       {errors.form && <div className="error">{errors.form}</div>} 
       </form>
       </div>

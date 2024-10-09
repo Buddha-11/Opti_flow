@@ -4,7 +4,7 @@ export const UserContext=createContext(null);
 
 export const UserProvider = (props) =>{
     const [login,setLogin]= useState(false);
-    const [username1,setUsername1]= useState('Alex');
+    const [username1,setUsername1]= useState('Arpit Anand');
     const [image1,setImage1]= useState(null);
     const [id,setId]=useState(null);
     const [total,setTotal]=useState(0);

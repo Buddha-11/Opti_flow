@@ -181,7 +181,7 @@ body {
   color: #ffffff; /* White text */
   font-weight: 500;
   cursor: pointer;
-  padding: 8px 12px; /* Add padding for better clickable area */
+  padding: 20px 12px; /* Add padding for better clickable area */
   border-radius: 5px; /* Rounded corners */
   transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
 }
@@ -212,6 +212,11 @@ body {
   }
 
   .Nav a {
+    margin-left: 5px; /* Reduced left margin for smaller screens */
+    margin-bottom: 10px; /* Add bottom margin for better spacing */
+    padding: 30px;
+  }
+  .Nav h3 {
     margin-left: 5px; /* Reduced left margin for smaller screens */
     margin-bottom: 10px; /* Add bottom margin for better spacing */
   }

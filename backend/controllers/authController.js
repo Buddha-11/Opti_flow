@@ -174,8 +174,8 @@ module.exports.forgot_password_patch = async (req, res) => {
 }
 
 module.exports.update_profile_patch = async (req, res) => {
-  const { username, designation } = req.body;
-  const userId = req.user._id; // Assuming you have user ID from the session or JWT
+  const { username, designation ,id } = req.body;
+  const userId = id; // Assuming you have user ID from the session or JWT
   console.log(userId)
   try {
     // Update the user with the new name and designation
