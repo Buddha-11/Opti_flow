@@ -1,91 +1,192 @@
-/* General Form Styling */
+/* General Body Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #121212; /* Dark background */
+  color: white;
+  margin: 0;
+  padding: 0;
+}
+/* Form Container (Signup) */
 .create {
   display: flex;
   flex-direction: column;
   width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #003366; /* Navy Blue background */
-  border-radius: 10px;
-  color: #fff; /* White text */
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #1e1e1e; /* Darker gray for the form background */
+  border-radius: 15px; /* Rounded corners */
+  border: 2px solid #007bff; /* Blue border */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add subtle shadow for depth */
+  color: #ffffff; /* White text */
 }
 
 .create h3 {
   text-align: center;
-  color: #FFD700; /* Mustard Yellow for the heading */
+  font-size: 32px;
+  margin-bottom: 20px;
+  color: #007bff; /* Bright Blue heading */
+  font-weight: 600;
 }
 
+/* Input Fields */
 .create label {
   margin: 10px 0 5px;
-  font-weight: bold;
+  font-size: 14px;
+  color: #b0b0b0; /* Light gray for labels */
 }
 
 .create input {
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  border: 1px solid #D3D3D3; /* Light Gray border */
-  background-color: #f5f5f5; /* Soft Gray input field */
-  color: #333; /* Dark Charcoal text */
+  padding: 12px;
+  margin-bottom: 20px;
+  border-radius: 10px; /* Rounded input fields */
+  border: 1px solid #007bff; /* Blue border for inputs */
+  background-color: #2c2c2c; /* Darker input background */
+  color: #ffffff; /* White text */
+  font-size: 16px;
 }
 
+.create input::placeholder {
+  color: #999999; /* Light gray for placeholders */
+}
+
+/* Signup Button */
 .create button {
-  padding: 10px;
-  background-color: #008080; /* Teal button */
-  color: #fff; /* White text */
+  padding: 12px;
+  background-color: #007bff; /* Blue button */
+  color: #ffffff; /* White text */
   border: none;
-  border-radius: 5px;
+  border-radius: 10px; /* Rounded button */
   cursor: pointer;
-  margin-top: 10px;
+  font-size: 16px;
+  margin-top: 15px;
+  transition: background-color 0.3s ease;
 }
 
 .create button:hover {
-  background-color: #FFD700; /* Mustard Yellow on hover */
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Login and Forgot Password Links */
+.extra-options {
+  display: flex; /* Align buttons horizontally */
+  justify-content: center; /* Center the options */
+  margin-top: 20px; /* Space above */
+}
+
+.extra-options a {
+  color: #ffffff; /* White color for links */
+  text-decoration: none; /* No underline */
+  font-size: 16px; /* Increase font size for visibility */
+  margin: 0 10px; /* Space between links */
+  transition: color 0.3s ease; /* Smooth transition */
+}
+
+.extra-options a:hover {
+  color: #007bff; /* Change color on hover */
 }
 
 /* OTP Verification Section */
 .otp-verification {
   margin: 15px 0;
   padding: 15px;
-  background-color: #666666; /* Medium Gray background */
-  border-radius: 5px;
+  background-color: #2c2c2c; /* Darker Gray background */
+  border-radius: 10px;
 }
 
 .otp-verification input {
   width: 80%;
-  padding: 10px;
+  padding: 12px;
   margin-bottom: 10px;
   border-radius: 5px;
-  border: 1px solid #D3D3D3; /* Light Gray border */
-  background-color: #f5f5f5; /* Soft Gray input */
-  color: #333; /* Dark Charcoal text */
+  border: 1px solid #007bff; /* Blue border */
+  background-color: #1e1e1e; /* Dark input */
+  color: #ffffff; /* White text */
 }
 
 .otp-verification button {
-  background-color: #008080; /* Teal button */
+  background-color: #007bff; /* Blue button */
   padding: 8px 12px;
   border-radius: 5px;
-  color: #fff; /* White text */
+  color: #ffffff; /* White text */
   cursor: pointer;
   border: none;
+  transition: background-color 0.3s ease;
 }
 
 .otp-verification button:hover {
-  background-color: #FFD700; /* Mustard Yellow on hover */
+  background-color: #0056b3; /* Darker blue on hover */
 }
 
 .success {
-  color: #FFD700; /* Mustard Yellow success message */
+  color: #007bff; /* Blue success message */
   margin-top: 10px;
   font-weight: bold;
 }
 
 .error {
-  color: #FB6542; /* Error messages in secondary red */
+  color: #ff0000; /* Red error messages */
   margin-top: 10px;
   font-weight: bold;
 }
 
 .space {
   margin-top: 25px;
+}
+
+/* Navbar Styling */
+.Nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000000; /* Black background */
+  padding: 15px 20px; /* Adjusted padding for responsiveness */
+  position: fixed; /* Use fixed positioning */
+  top: 0; /* Stick to the top */
+  left: 0; /* Ensure it stretches to the left */
+  width: 100%; /* Make it full width */
+  z-index: 1000; /* Make sure it’s above other elements */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+  flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
+}
+
+/* Adjust links and buttons in the navbar */
+.Nav a {
+  text-decoration: none;
+  color: #ffffff; /* White links */
+  margin-left: 20px; /* Space between links */
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.Nav a:hover {
+  color: #007bff; /* Blue hover color */
+}
+
+/* Adjust container for right-side buttons */
+.container2 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping for buttons */
+}
+
+/* Styling for buttons */
+.container2 h1,
+.container2 a {
+  font-size: 18px;
+  color: #ffffff; /* White text */
+  margin-left: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.container2 a {
+  color: #ff0000; /* Red for logout */
+  margin-left: 20px;
+}
+
+.container2 a:hover {
+  color: #d40000; /* Darker red on hover */
 }
