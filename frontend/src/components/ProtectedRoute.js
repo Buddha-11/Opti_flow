@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { UserContext } from '../context/user';
-import{ jwtDecode } from 'jwt-decode'; // Correct import without curly braces
+import {jwtDecode} from 'jwt-decode'; // Ensure the correct import
 
 const ProtectedRoute = ({ children, adminOnly = false }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [loading, setLoading] = useState(true); // New loading state
   const { setUser } = useContext(UserContext);
 
   useEffect(() => {
@@ -22,15 +23,12 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
           const decoded = jwtDecode(tokenValue);
           console.log('Decoded token:', decoded);
 
-          // Simulate a delay before setting the state
-          setTimeout(() => {
-            setUser({ _id: decoded.id, admin: decoded.admin });
-            setIsAuthenticated(true);
-            setIsAdmin(decoded.admin); // This will update isAdmin after the delay
-
-            console.log("User authenticated after delay, Admin status:", decoded.admin);
-          }, 2000); // Delay for 2 seconds
+          // Update the user context and states
+          setUser({ _id: decoded.id, admin: decoded.admin });
+          setIsAuthenticated(true);
+          setIsAdmin(decoded.admin); // Update admin status
           
+          console.log("User authenticated, Admin status:", decoded.admin);
         } catch (error) {
           console.log('Token is invalid or expired.', error);
           setIsAuthenticated(false);
@@ -39,15 +37,22 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
         console.log("No token found, redirecting to login");
         setIsAuthenticated(false);
       }
+
+      // Set loading to false after processing is done
+      setLoading(false);
     };
 
     // Call the function to handle the token decoding and state update
     handleToken();
   }, [setUser]); // Only setUser needs to be in the dependency array
 
-  // Log state during rendering (after updates)
-  setTimeout(() => {
-    console.log("Render: isAdmin:", isAdmin, "isAuthenticated:", isAuthenticated);
+  // Log state during rendering
+  console.log("Render: isAdmin:", isAdmin, "isAuthenticated:", isAuthenticated);
+
+  // If loading, don't render anything yet
+  if (loading) {
+    return <div>Loading...</div>; // Or a loading spinner
+  }
 
   // Redirect to /login_admin if it's an admin-only route but user isn't an admin
   if (adminOnly && !isAdmin) {
@@ -60,10 +65,8 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
     console.log("User not authenticated, redirecting to /login");
     return <Navigate to="/login" />;
   }
-  }, 2000);
-  
 
-  return children;
+  return children; // Render the protected children if authenticated
 };
 
 export default ProtectedRoute;

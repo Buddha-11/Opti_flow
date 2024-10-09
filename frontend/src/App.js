@@ -35,6 +35,10 @@ function App() {
               path="/login_admin" 
               element={<AdminLoginForm />} 
             />
+            <Route 
+              path="/update_profile" 
+              element={<ProfileUpdate />} 
+            />
           </Routes>
         </div>
       </BrowserRouter>
