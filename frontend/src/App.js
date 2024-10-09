@@ -9,7 +9,7 @@ import ForgotForm from './pages/ForgotPassword.js'
 import AdminSignupForm from './pages/SignupAdmin.js'
 import AdminLoginForm from './pages/AdminLogin.js'
 import ProfileUpdate from './pages/UpdateProfile.js'
-import ProtectedAdminRoute from './components/ProtectedAdminRoute'; 
+import ProtectedRoute from './components/ProtectedRoute.js'; 
 
 function App() {
   return (
@@ -17,43 +17,19 @@ function App() {
       <BrowserRouter>
               <div className="pages">
           <Routes>
+            {/* Protect the home route */}
+            <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
 
-            <Route 
-              path="/" 
-              element={<Home />} 
-            />
-            <Route 
-              path="/signup" 
-              element={<SignupForm />} 
-            />
-            <Route 
-              path="/login" 
-              element={<LoginForm />} 
-            />
-            <Route
-             path="/sendEmail" 
-             element={<MyForm />} 
-             />
-              <Route
-             path="/forgot_password" 
-             element={<ForgotForm />} 
-             />
-              <Route
-             path="/signup_admin" 
-             element={<AdminSignupForm />} 
-             />
-              <Route
-             path="/login_admin" 
-             element={<AdminLoginForm />} 
-             />
-             <Route
-             path="/update_profile" 
-             element={<ProfileUpdate />} 
-             />
+            {/* Public routes */}
+            <Route path="/signup" element={<SignupForm />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/sendEmail" element={<MyForm />} />
+            <Route path="/forgot_password" element={<ForgotForm />} />
+            
+            {/* Admin-only protected routes */}
             <Route 
               path="/signup_admin" 
-              // element={<ProtectedAdminRoute element={<AdminSignupForm />} />}
-              element={<AdminSignupForm />} 
+              element={<ProtectedRoute adminOnly={true}><AdminSignupForm /></ProtectedRoute>} 
             />
             <Route 
               path="/login_admin" 
