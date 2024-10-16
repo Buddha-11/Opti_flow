@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {jwtDecode} from 'jwt-decode'; // Ensure the correct import
+import {jwtDecode} from 'jwt-decode'; // Make sure this is the correct import
 
 const Profile = () => {
   const [userData, setUserData] = useState({ username: '', designation: '' });
@@ -23,11 +23,11 @@ const Profile = () => {
         const decoded = jwtDecode(tokenValue);
         console.log('Decoded token:', decoded);
 
-        // Extract username and designation from the decoded token
-        const username = decoded.user.username;
-        const designation = decoded.user.designation;
-        console.log(decoded);
-        console.log(username,designation);
+        // Extract username and designation directly from the decoded token
+        // Adjust this based on the actual structure of your token
+        const username = decoded.username; // Change based on the structure
+        const designation = decoded.designation; // Change based on the structure
+        console.log('Username:', username, 'Designation:', designation);
 
         setUserData({ username, designation });
         setLoading(false);
