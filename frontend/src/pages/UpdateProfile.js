@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/user';
 import '../index.css';
-import {jwtDecode} from 'jwt-decode'; // Correct import without curly braces
+import { jwtDecode } from 'jwt-decode'; // Correct import without curly braces
 
 const ProfileUpdate = () => {
   const [loading, setLoading] = useState(true); // Set to true initially
@@ -10,8 +10,8 @@ const ProfileUpdate = () => {
   const [username, setUsername] = useState('');
   const [designation, setDesignation] = useState(''); // New field for designation
   const [errors, setErrors] = useState({ username: '', designation: '', form: '' });
+  const [id, setId] = useState(null); // Use state to store the user ID
   const navigate = useNavigate();
-  let id; // Variable for user ID
 
   // Decode the token on component mount and handle the loading state
   useEffect(() => {
@@ -24,8 +24,7 @@ const ProfileUpdate = () => {
         try {
           const decoded = jwtDecode(tokenValue);
           console.log('Decoded token:', decoded);
-          id = decoded.id; // Set the user ID from token
-          console.log(id);
+          setId(decoded.id); // Set the user ID from token using state
         } catch (error) {
           console.log('Token is invalid or expired.', error);
         }
@@ -33,56 +32,58 @@ const ProfileUpdate = () => {
         console.log('No token found, redirecting to login');
       }
 
-      // Set loading to false after the token is decoded
-      setLoading(false);
+      setLoading(false); // Set loading to false once token is handled
     };
 
-    // Call the function to decode the token
     handleToken();
-  }, []); // Run once when the component is mounted
+  }, []); // Empty dependency array ensures it runs only on mount
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Form validation
     if (!username.trim() || !designation.trim()) {
-      setErrors({ 
-        ...errors, 
-        username: !username.trim() ? 'Username is required.' : '', 
-        designation: !designation.trim() ? 'Designation is required.' : '' 
+      setErrors({
+        ...errors,
+        username: !username.trim() ? 'Username is required.' : '',
+        designation: !designation.trim() ? 'Designation is required.' : ''
       });
       return;
     }
 
-    // Only proceed if loading is false (i.e., token is decoded)
-    if (!loading) {
-      const updatedProfile = { username, designation, id }; // Fields to be updated
+    // Check if the ID is loaded before sending the request
+    if (!id) {
+      setErrors({ ...errors, form: 'Failed to identify user. Please try again.' });
+      return;
+    }
 
-      try {
-        const response = await fetch('/api/update_profile', {
-          method: 'PATCH',
-          body: JSON.stringify(updatedProfile),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+    const updatedProfile = { username, designation, id }; // Use the ID from state
 
-        const json = await response.json();
+    try {
+      const response = await fetch('/api/update_profile', {
+        method: 'PATCH',
+        body: JSON.stringify(updatedProfile),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-        if (!response.ok) {
-          setErrors(json.errors);
-        } else {
-          setUsername1(username); // Update the context with the new username
-          setErrors({ username: '', designation: '', form: '' });
-          setUsername('');
-          setDesignation('');
-          navigate('/profile'); // Redirect after successful update
-          console.log('Profile updated successfully:', json);
-        }
-      } catch (err) {
-        console.error('Request failed:', err);
-        setErrors({ ...errors, form: 'Failed to update profile. Please try again later.' });
+      const json = await response.json();
+
+      if (!response.ok) {
+        setErrors(json.errors);
+      } else {
+        setUsername1(username); // Update the context with the new username
+        localStorage.setItem('username', username);
+        setErrors({ username: '', designation: '', form: '' });
+        setUsername(''); // Clear input fields
+        setDesignation('');
+        navigate('/profile'); // Redirect after successful update
+        console.log('Profile updated successfully:', json);
       }
+    } catch (err) {
+      console.error('Request failed:', err);
+      setErrors({ ...errors, form: 'Failed to update profile. Please try again later.' });
     }
   };
 

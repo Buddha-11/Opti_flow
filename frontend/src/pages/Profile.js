@@ -25,10 +25,10 @@ const Profile = () => {
 
         // Extract username and designation directly from the decoded token
         // Adjust this based on the actual structure of your token
-        const username = decoded.username; // Change based on the structure
+        const username =localStorage.getItem('username');; // Change based on the structure
         const designation = decoded.designation; // Change based on the structure
         console.log('Username:', username, 'Designation:', designation);
-
+        
         setUserData({ username, designation });
         setLoading(false);
       } catch (err) {
