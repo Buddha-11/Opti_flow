@@ -32,7 +32,7 @@ const AdminLoginForm = () => {
         
         toggle();
         const{username}=json;
-        setUsername1(username)
+        setUsername1(username);
         
         
         // setErrors=useState({ email: '', password: '', form: '' });

@@ -4,13 +4,15 @@ const User = require('../models/User');
 // Create a new task - only admin can create a task
 module.exports.create_task = async (req, res) => {
     try {
-      const { userId, taskTitle, taskDetails, assigneeUsernames, taskDeadline } = req.body;
+      const { username,taskTitle, taskDetails, assigneeUsernames, taskDeadline } = req.body;
   
       // Find the user who is creating the task
-      const creator = await User.findById(userId);
-      if (!creator || !creator.admin) {
-        return res.status(403).json({ message: 'Only admins can create tasks' });
-      }
+      console.log(username);
+      console.log('hi')
+      const creator = await User.findOne({username});
+      // if (!creator || !creator.admin) {
+      //   return res.status(403).json({ message: 'Only admins can create tasks' });
+      // }
   
       // Find users by their usernames and extract their IDs
       const assignedUsers = await Promise.all(
