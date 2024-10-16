@@ -1,2 +1,5 @@
 node_modules
 backend/.env
+ML/venv
+ML/.env
+ML/view
