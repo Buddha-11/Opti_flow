@@ -17,22 +17,30 @@ const userSchema = new mongoose.Schema({
     unique: true,
     minlength: [3, 'Minimum username length is 3 characters'],
     maxlength: [20, 'Maximum username length is 20 characters'],
-    
   },
   password: {
     type: String,
     required: [true, 'Please enter a password'],
     minlength: [6, 'Minimum password length is 6 characters'],
   },
-  admin:{
-    type:Boolean,
-    default:false,
+  admin: {
+    type: Boolean,
+    default: false,
   },
   designation: {
-    type: String ,
-    required:true,
-  }
+    type: String,
+    required: true,
+  },
+  createdTasks: [{  // List of tasks created by the user
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Task'
+  }],
+  assignedTasks: [{  // List of tasks assigned to the user
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Task'
+  }]
 });
+
 
 
 // fire a function before doc saved to db
