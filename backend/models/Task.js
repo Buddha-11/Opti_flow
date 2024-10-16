@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
-  creatorId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',  // Reference to the User model
-    required: true
-  },
+  // creatorId: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'User',  // Reference to the User model
+  //   required: true
+  // },
   creatorUsername: {
     type: String,
     required: true
