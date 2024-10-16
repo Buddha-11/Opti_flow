@@ -13,6 +13,7 @@ import ProtectedRoute from './components/ProtectedRoute.js';
 import Logout from './pages/Logout.js';
 import Profile from './pages/Profile.js';
 import ResumeRankingForm from './pages/ResumeRankingForm.js';
+import Task from './pages/AddTask.js';
 function App() {
   return (
     <div className="App">
@@ -49,6 +50,11 @@ function App() {
               path="/profile" 
               element={<Profile/>} 
             />
+            <Route 
+              path="/create_task" 
+              element={<Task/>} 
+            />
+            
           </Routes>
         </div>
       </BrowserRouter>

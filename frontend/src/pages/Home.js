@@ -1,5 +1,6 @@
 import '../index.css'
 import Navbar from '../components/Navbar'
+import TaskList from '../components/Task'
 
 const Home=()=>{
     return (
@@ -7,6 +8,11 @@ const Home=()=>{
             <div className="Navbar">
                 <Navbar />
             </div>
+            <div className="Task">
+                <TaskList />
+            </div>
+
+            
         </div>
     )
 }

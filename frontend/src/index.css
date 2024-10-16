@@ -285,3 +285,120 @@ body {
     font-size: 1rem;
   }
 }
+
+.task-form-container {
+  background-color: #1e1e1e; /* Dark background (black) */
+  color: #ffffff; /* White text */
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.task-form-container h2 {
+  color: #007acc; /* Bright blue for headings */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.task-form-container form div {
+  margin-bottom: 15px;
+}
+
+.task-form-container label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.task-form-container input[type="text"],
+.task-form-container input[type="date"],
+.task-form-container textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #333333;
+  background-color: #2d2d2d;
+  color: #ffffff;
+  outline: none;
+}
+
+.task-form-container input[type="text"]:focus,
+.task-form-container input[type="date"]:focus,
+.task-form-container textarea:focus {
+  border-color: #007acc; /* Blue focus border */
+}
+
+.task-form-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007acc; /* Bright blue button */
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.task-form-container button:hover {
+  background-color: #005f99; /* Darker blue on hover */
+}
+
+.error-message {
+  color: #ff4c4c; /* Red for error messages */
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.success-message {
+  color: #4caf50; /* Green for success messages */
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.task-list-container {
+  background-color: #1e1e1e; /* Dark background */
+  color: #ffffff; /* White text */
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 20px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.task-list-container h2 {
+  color: #007acc; /* Blue heading */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.task-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.task-item {
+  background-color: #2d2d2d; /* Slightly lighter background */
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.task-item h3 {
+  color: #007acc; /* Blue for task title */
+  margin: 0 0 10px;
+}
+
+.task-item p {
+  margin: 5px 0;
+}
+
+.error-message {
+  color: #ff4c4c; /* Red for errors */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
