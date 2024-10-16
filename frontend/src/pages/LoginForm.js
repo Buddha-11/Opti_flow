@@ -1,19 +1,21 @@
 import { useContext, useState } from 'react'
-// import '../index.css'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../context/user'
 import { Link } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode'; 
+
 const LoginForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [errors, setErrors] = useState({ email: '', password: '', form: '' }) // Include a general error field
+  const [errors, setErrors] = useState({ email: '', password: '', form: '' })
   const navigate = useNavigate()
-  const {login,toggle,username1,setUsername1}=useContext(UserContext)
+  const { login, toggle, username1, setUsername1, setTokenId, setTokenName, setTokenDesig, setTokenAdmin } = useContext(UserContext)
 
   const HandleSubmit = async (e) => {
     e.preventDefault()
 
     const auth = { email, password }
+
     try {
       const response = await fetch('/api/login', {
         method: 'POST',
@@ -22,23 +24,38 @@ const LoginForm = () => {
           'Content-Type': 'application/json'
         }
       })
+
       const json = await response.json()
       
       if (!response.ok) {
-        setErrors(json.errors)
         setErrors({ ...errors, form: 'Invalid credentials. Please try again.' })
-      }
-      else{
-        
+      } else {
         toggle();
-        const{username}=json;
-        setUsername1(username)
+        const { username } = json;
+        setUsername1(username);
+        localStorage.setItem('username', username);
+        localStorage.setItem('isLoggedIn', 'true');
+        
+        const token = document.cookie.split('; ').find(row => row.startsWith('jwt='));
+        if (token) {
+          const tokenValue = token.split('=')[1];
+          try {
+            const decoded = jwtDecode(tokenValue);
+            setTokenId(decoded.id); 
+            setTokenDesig(decoded.designation);
+            setTokenAdmin(decoded.admin);
+            setTokenName(decoded.username);
+          } catch (error) {
+            console.log('Token is invalid or expired.', error);
+          }
+        } else {
+          console.log('No token found, redirecting to login');
+        }
         
         
-        // setErrors=useState({ email: '', password: '', form: '' });
-        setEmail('')
-        setPassword('')
-        navigate('/')
+        setEmail('');
+        setPassword('');
+        navigate('/');
       }
     } catch (err) {
       console.error('Request failed:', err)
@@ -48,30 +65,30 @@ const LoginForm = () => {
 
   return (
     <div className="form_container">
-    <form className="create" onSubmit={HandleSubmit}>
-      <h3>Login</h3>
+      <form className="create" onSubmit={HandleSubmit}>
+        <h3>Login</h3>
 
-      <label>Email:</label>
-      <input
-        type="text"
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
-      />
-      {errors.email && <div className="error">{errors.email}</div>}
-      
-      <label>Password:</label>
-      <input
-        type="password"
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-      />
-      {errors.password && <div className="error">{errors.password}</div>}
+        <label>Email:</label>
+        <input
+          type="text"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+        />
+        {errors.email && <div className="error">{errors.email}</div>}
+        
+        <label>Password:</label>
+        <input
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
+        {errors.password && <div className="error">{errors.password}</div>}
 
-      <button>Login</button>
-      <Link to="/signup">Signup</Link>
-      {errors.form && <div className="error">{errors.form}</div>} 
+        <button type="submit">Login</button>
+        <Link to="/signup">Signup</Link>
+        {errors.form && <div className="error">{errors.form}</div>} 
       </form>
-      </div>
+    </div>
   )
 }
 
