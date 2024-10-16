@@ -86,6 +86,7 @@ const LoginForm = () => {
 
         <button type="submit">Login</button>
         <Link to="/signup">Signup</Link>
+        <Link to="/forgot_password">Forgot password</Link>
         {errors.form && <div className="error">{errors.form}</div>} 
       </form>
     </div>
