@@ -3,6 +3,7 @@ const express=require('express');
 const mongoose=require('mongoose');
 const authRoutes = require('./routes/authroutes');
 const emaiRoutes= require('./routes/emailRoutes');
+const taskRoutes = require('./routes/taskRoutes')
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 const cookieParser = require('cookie-parser');
 
@@ -20,7 +21,7 @@ app.use((req, res, next) => {
   //routes
   app.use('/api', authRoutes); 
   app.use('/api', emaiRoutes);
-
+  app.use('/api/task',taskRoutes);
   mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     app.listen(process.env.PORT, () => {

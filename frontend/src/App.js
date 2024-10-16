@@ -27,7 +27,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/sendEmail" element={<MyForm />} />
             <Route path="/forgot_password" element={<ForgotForm />} />
-            <Route path="/resume_review" element={<ResumeRankingForm />} />
+            <Route path="/resume_review" element={<ProtectedRoute><ResumeRankingForm /></ProtectedRoute>} />
             {/* Admin-only protected routes */}
             <Route 
               path="/signup_admin" 
