@@ -12,6 +12,7 @@ import ProfileUpdate from './pages/UpdateProfile.js'
 import ProtectedRoute from './components/ProtectedRoute.js'; 
 import Logout from './pages/Logout.js';
 import Profile from './pages/Profile.js';
+import ResumeRankingForm from './pages/ResumeRankingForm.js';
 function App() {
   return (
     <div className="App">
@@ -26,7 +27,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/sendEmail" element={<MyForm />} />
             <Route path="/forgot_password" element={<ForgotForm />} />
-            
+            <Route path="/resume_review" element={<ResumeRankingForm />} />
             {/* Admin-only protected routes */}
             <Route 
               path="/signup_admin" 
