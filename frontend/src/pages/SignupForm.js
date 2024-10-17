@@ -13,8 +13,42 @@ const SignupForm = () => {
   const [serverOtp, setServerOtp] = useState('');
   const [userEnteredOtp, setUserEnteredOtp] = useState('');
   const [otpVerified, setOtpVerified] = useState(false);
-  const [errors, setErrors] = useState({ email: '', username: '', password: '', designation: '' }); // Updated errors state
+  const [errors, setErrors] = useState({ email: '', username: '', password: '', designation: '', form: '' });
   const navigate = useNavigate();
+
+  const validateFields = () => {
+    const newErrors = { email: '', username: '', password: '', designation: '', form: '' };
+    let isValid = true;
+
+    if (!email.trim()) {
+      newErrors.email = 'Email is required.';
+      isValid = false;
+    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+      newErrors.email = 'Invalid email format.';
+      isValid = false;
+    }
+
+    if (!username.trim()) {
+      newErrors.username = 'Username is required.';
+      isValid = false;
+    }
+
+    if (!password.trim()) {
+      newErrors.password = 'Password is required.';
+      isValid = false;
+    } else if (password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters.';
+      isValid = false;
+    }
+
+    if (!designation.trim()) {
+      newErrors.designation = 'Designation is required.';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,10 +58,7 @@ const SignupForm = () => {
       return;
     }
 
-    if (!designation.trim()) {
-      setErrors({ ...errors, designation: 'Designation is required.' });
-      return;
-    }
+    if (!validateFields()) return;
 
     const auth = { email, username, password, designation }; // Added designation
 
@@ -42,11 +73,11 @@ const SignupForm = () => {
       const json = await response.json();
 
       if (!response.ok) {
-        setErrors(json.errors);
+        setErrors((prevErrors) => ({ ...prevErrors, form: json.errors.form || 'Failed to sign up. Please try again.' }));
       } else {
         toggle();
         setUsername1(username);
-        setErrors({ email: '', username: '', password: '', designation: '' });
+        setErrors({ email: '', username: '', password: '', designation: '', form: '' });
         setEmail('');
         setUsername('');
         setPassword('');
@@ -61,6 +92,11 @@ const SignupForm = () => {
   };
 
   const handleSendOtp = async () => {
+    if (!email.trim()) {
+      setErrors((prevErrors) => ({ ...prevErrors, email: 'Please enter your email to receive OTP.' }));
+      return;
+    }
+
     try {
       const response = await fetch('/api/sendEmail', {
         method: 'POST',
@@ -77,22 +113,27 @@ const SignupForm = () => {
         setServerOtp(data.otp);
         console.log('OTP sent:', data.otp);
       } else {
-        setErrors({ ...errors, email: 'Failed to send OTP. Try again later.' });
+        setErrors((prevErrors) => ({ ...prevErrors, email: 'Failed to send OTP. Try again later.' }));
       }
     } catch (err) {
       console.error('Failed to send OTP:', err);
+      setErrors((prevErrors) => ({ ...prevErrors, email: 'Error sending OTP. Please try again.' }));
     }
   };
 
   const verifyOtp = () => {
-    console.log('Server OTP:', serverOtp);
-    console.log('User Entered OTP:', userEnteredOtp);
+    if (!userEnteredOtp.trim()) {
+      setErrors((prevErrors) => ({ ...prevErrors, form: 'Please enter the OTP.' }));
+      return;
+    }
 
     if (userEnteredOtp.trim() === serverOtp.trim()) {
       setOtpVerified(true);
+      setErrors((prevErrors) => ({ ...prevErrors, form: '' }));
       console.log('OTP verified successfully!');
     } else {
       setOtpVerified(false);
+      setErrors((prevErrors) => ({ ...prevErrors, form: 'Incorrect OTP. Please try again.' }));
       console.log('Incorrect OTP. Please try again.');
     }
   };
