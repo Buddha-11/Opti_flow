@@ -222,57 +222,84 @@ body {
   }
 }
 
-
 /* Profile Container */
 .profile {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px; /* Increased max-width for a larger layout */
   margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9; /* Light background for the profile section */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  text-align: center; /* Center align text */
+  padding: 30px; /* Added more padding for spacious layout */
+  color: grey;
+  background: linear-gradient(135deg, #f0f0f0, #e6e6e6); /* Soft gradient background */
+  border-radius: 12px; /* Slightly more rounded corners */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly deeper shadow */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile:hover {
+  transform: translateY(-5px); /* Subtle lift on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
 }
 
 /* Heading Style */
 .profile h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #333; /* Dark text for the heading */
+  font-size: 2.2rem; /* Slightly larger heading */
+  margin-bottom: 1.5rem;
+  color: #333;
   font-family: 'Arial', sans-serif;
+  letter-spacing: 1px; /* Added letter spacing for a more refined look */
+  text-transform: uppercase; /* Capitalized heading for emphasis */
 }
 
 /* Paragraph Styles for User Info */
 .profile p {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  color: #555; /* Slightly lighter text for the info */
+  font-size: 1.3rem; /* Slightly larger text */
+  margin-bottom: 1.5rem; /* Increased spacing between paragraphs */
+  color: #444; /* Darkened text color for better contrast */
   font-family: 'Arial', sans-serif;
+  line-height: 1.6; /* Improved line spacing */
 }
 
 /* Bold styling for labels like Username and Designation */
 .profile p strong {
-  color: #222; /* Darker color for the labels */
+  color: #222; /* Darker for emphasis */
+  font-weight: bold; /* Increased weight for strong text */
 }
 
 /* Error Message Style */
 .error {
-  color: #e74c3c; /* Red color for error messages */
-  background-color: #fcecec; /* Light red background for emphasis */
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 1rem;
+  color: #e74c3c; /* Red for errors */
+  background-color: #fde2e2; /* Softer red background */
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem; /* Slightly larger text for readability */
 }
 
 /* Loading State */
 .loading {
-  font-size: 1.5rem;
+  font-size: 1.6rem; /* Larger for better visibility */
   color: #777;
+  font-style: italic; /* Italicize to distinguish loading state */
 }
 
 /* Media Query for Responsiveness */
 @media (max-width: 768px) {
+  .profile {
+    padding: 20px;
+  }
+
+  .profile h2 {
+    font-size: 1.8rem;
+  }
+
+  .profile p {
+    font-size: 1.1rem;
+  }
+}
+
+/* Media Query for Smaller Screens */
+@media (max-width: 480px) {
   .profile {
     padding: 15px;
   }
@@ -286,24 +313,45 @@ body {
   }
 }
 
-.task-form-container {
-  background-color: #1e1e1e; /* Dark background (black) */
-  color: #ffffff; /* White text */
-  padding: 20px;
-  border-radius: 10px;
-  width: 400px;
-  margin: 0 auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+/* General styling */
+body {
+  background-color: grey; /* Light gray background for contrast */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.task-form-container, 
+.task-list-container {
+  background: linear-gradient(135deg, #2a2a2a, #1e1e1e); /* Gradient background */
+  color: #ffffff;
+  padding: 35px; /* Increased padding for a bigger look */
+  border-radius: 15px;
+  max-width: 800px; /* Increased width to make the container bigger */
+  margin: 30px auto;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.task-form-container:hover, 
+.task-list-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+}
+
+/* Task form specific styling */
 .task-form-container h2 {
-  color: #007acc; /* Bright blue for headings */
+  color: #00bfff; /* Light blue for headings */
   margin-bottom: 20px;
   text-align: center;
 }
 
 .task-form-container form div {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .task-form-container label {
@@ -316,60 +364,40 @@ body {
 .task-form-container input[type="date"],
 .task-form-container textarea {
   width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #333333;
-  background-color: #2d2d2d;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #444444;
+  background-color: #333333;
   color: #ffffff;
   outline: none;
+  transition: border-color 0.3s ease;
 }
 
 .task-form-container input[type="text"]:focus,
 .task-form-container input[type="date"]:focus,
 .task-form-container textarea:focus {
-  border-color: #007acc; /* Blue focus border */
+  border-color: #00bfff; /* Bright blue focus border */
 }
 
 .task-form-container button {
   width: 100%;
-  padding: 10px;
-  background-color: #007acc; /* Bright blue button */
+  padding: 12px;
+  background-color: #00bfff; /* Bright blue button */
   color: #ffffff;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
 .task-form-container button:hover {
-  background-color: #005f99; /* Darker blue on hover */
+  background-color: #0099cc; /* Darker blue on hover */
 }
 
-.error-message {
-  color: #ff4c4c; /* Red for error messages */
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.success-message {
-  color: #4caf50; /* Green for success messages */
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 10px;
-}
-.task-list-container {
-  background-color: #1e1e1e; /* Dark background */
-  color: #ffffff; /* White text */
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 600px;
-  margin: 20px auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
+/* Task list specific styling */
 .task-list-container h2 {
-  color: #007acc; /* Blue heading */
+  color: #00bfff; /* Blue heading */
   margin-bottom: 20px;
   text-align: center;
 }
@@ -377,18 +405,25 @@ body {
 .task-list {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
 .task-item {
-  background-color: #2d2d2d; /* Slightly lighter background */
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: #333333; /* Slightly lighter background */
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.task-item:hover {
+  background-color: #444444;
+  transform: translateY(-2px);
 }
 
 .task-item h3 {
-  color: #007acc; /* Blue for task title */
+  color: #00bfff; /* Blue for task title */
   margin: 0 0 10px;
 }
 
@@ -396,9 +431,17 @@ body {
   margin: 5px 0;
 }
 
+/* Error and success messages */
 .error-message {
-  color: #ff4c4c; /* Red for errors */
+  color: #ff4c4c; /* Red for error messages */
+  font-weight: bold;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
+.success-message {
+  color: #4caf50; /* Green for success messages */
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+}
