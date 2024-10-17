@@ -1,47 +1,74 @@
-import { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { UserContext } from '../context/user'
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/user';
 import { Link } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode'; 
+import { jwtDecode } from 'jwt-decode';
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [errors, setErrors] = useState({ email: '', password: '', form: '' })
-  const navigate = useNavigate()
-  const { login, toggle, username1, setUsername1, setTokenId, setTokenName, setTokenDesig, setTokenAdmin } = useContext(UserContext)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({ email: '', password: '', form: '' });
+  const navigate = useNavigate();
+  const { login, toggle, username1, setUsername1, setTokenId, setTokenName, setTokenDesig, setTokenAdmin } = useContext(UserContext);
+
+  const validateInputs = () => {
+    let valid = true;
+    const newErrors = { email: '', password: '', form: '' };
+
+    if (!email) {
+      newErrors.email = 'Please enter your email.';
+      valid = false;
+    }
+
+    if (!password) {
+      newErrors.password = 'Please enter your password.';
+      valid = false;
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
 
   const HandleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const auth = { email, password }
+    if (!validateInputs()) return;
+
+    const auth = { email, password };
 
     try {
       const response = await fetch('/api/login', {
         method: 'POST',
         body: JSON.stringify(auth),
         headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+          'Content-Type': 'application/json',
+        },
+      });
 
-      const json = await response.json()
-      
+      const json = await response.json();
+
       if (!response.ok) {
-        setErrors({ ...errors, form: 'Invalid credentials. Please try again.' })
+        // Error handling for account not found or incorrect credentials
+        if (json.error === 'Account does not exist') {
+          setErrors({ ...errors, form: 'Account not found. Please sign up.' });
+        } else if (json.error === 'Incorrect credentials') {
+          setErrors({ ...errors, form: 'Email or password is incorrect. Please try again.' });
+        } else {
+          setErrors({ ...errors, form: 'An error occurred. Please try again.' });
+        }
       } else {
         toggle();
         const { username } = json;
         setUsername1(username);
         localStorage.setItem('username', username);
         localStorage.setItem('isLoggedIn', 'true');
-        
+
         const token = document.cookie.split('; ').find(row => row.startsWith('jwt='));
         if (token) {
           const tokenValue = token.split('=')[1];
           try {
             const decoded = jwtDecode(tokenValue);
-            setTokenId(decoded.id); 
+            setTokenId(decoded.id);
             setTokenDesig(decoded.designation);
             setTokenAdmin(decoded.admin);
             setTokenName(decoded.username);
@@ -51,17 +78,16 @@ const LoginForm = () => {
         } else {
           console.log('No token found, redirecting to login');
         }
-        
-        
+
         setEmail('');
         setPassword('');
         navigate('/');
       }
     } catch (err) {
-      console.error('Request failed:', err)
-      setErrors({ ...errors, form: 'Failed to log in. Please try again later.' }) 
+      console.error('Request failed:', err);
+      setErrors({ ...errors, form: 'Failed to log in. Please try again later.' });
     }
-  }
+  };
 
   return (
     <div className="form_container">
@@ -75,7 +101,7 @@ const LoginForm = () => {
           value={email}
         />
         {errors.email && <div className="error">{errors.email}</div>}
-        
+
         <label>Password:</label>
         <input
           type="password"
@@ -87,10 +113,10 @@ const LoginForm = () => {
         <button type="submit">Login</button>
         <Link to="/signup">Signup</Link>
         <Link to="/forgot_password">Forgot password</Link>
-        {errors.form && <div className="error">{errors.form}</div>} 
+        {errors.form && <div className="error">{errors.form}</div>}
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;
