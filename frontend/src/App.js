@@ -28,7 +28,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/sendEmail" element={<MyForm />} />
             <Route path="/forgot_password" element={<ForgotForm />} />
-            <Route path="/resume_review" element={<ProtectedRoute><ResumeRankingForm /></ProtectedRoute>} />
+            <Route path="/resume_review" element={<ProtectedRoute adminOnly={true}><ResumeRankingForm /></ProtectedRoute>} />
             {/* Admin-only protected routes */}
             <Route 
               path="/signup_admin" 
@@ -52,7 +52,7 @@ function App() {
             />
             <Route 
               path="/create_task" 
-              element={<Task/>} 
+              element={<ProtectedRoute adminOnly={true}><Task/></ProtectedRoute>} 
             />
             
           </Routes>
