@@ -84,7 +84,7 @@ def analyze_resume():
     input_prompt = """
     You are a skilled ATS (Applicant Tracking System) scanner with a deep understanding of data science and ATS functionality. 
     Your task is to evaluate the resume against the provided job description. Provide a percentage match, followed by missing keywords, 
-    and finally your professional thoughts. be a bit harsh on precentage match if something is missing do deduct points .
+    and finally your professional thoughts. be a bit harsh on precentage match if something is missing do deduct points . FOR EACH MISSING KEYWORD SCORE SHOULD BE DECREASED BY 0.5 OUT OF THE FINAL SCORE, IF THE USER IS EXPERT AT SOME OTHER FIELD (APP DEV , WEB DEV , CYBER SEC DEV ) THAN THE REQUIREMENT THEN THE SCORE MUST BE LESS THAN 5 OUT OF 10, GIVE A SCORE OUT OF 10 IN THE END
     """
     
     scores = []
