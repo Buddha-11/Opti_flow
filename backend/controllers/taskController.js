@@ -103,25 +103,135 @@ module.exports.get_task = async (req, res) => {
 };
 
 // Delete a task by ID
-module.exports.delete_task = async (req, res) => {
+// module.exports.delete_task = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const task = await Task.findByIdAndDelete(id);
+//     console.log(task);
+//     if (!task) {
+//       return res.status(404).json({ message: 'Task not found' });
+//     }
+
+//     // Remove the task from users' assigned task lists
+//     task.assignedUsers.forEach(async ({ userId }) => {
+//       const user = await User.findById(userId);
+//       user.assignedTasks = user.assignedTasks.filter(taskId => taskId.toString() !== id);
+//       await user.save();
+//     });
+
+//     // Remove from the creator's created task list
+//     const creator = await User.findById(task.creatorId);
+//     creator.createdTasks = creator.createdTasks.filter(taskId => taskId.toString() !== id);
+//     await creator.save();
+
+//     res.status(200).json({ message: 'Task deleted successfully' });
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// };
+
+module.exports.update_task = async (req, res) => {
   try {
     const { id } = req.params;
-    const task = await Task.findByIdAndDelete(id);
+    const  taskId=id;
+    const { taskTitle, taskDetails, assigneeUsernames, taskDeadline } = req.body;
+
+    // Find the task by ID
+    const task = await Task.findById(taskId);
+
     if (!task) {
       return res.status(404).json({ message: 'Task not found' });
     }
 
-    // Remove the task from users' assigned task lists
-    task.assignedUsers.forEach(async ({ userId }) => {
-      const user = await User.findById(userId);
-      user.assignedTasks = user.assignedTasks.filter(taskId => taskId.toString() !== id);
-      await user.save();
-    });
+    // Update task details
+    task.taskTitle = taskTitle;
+    task.taskDetails = taskDetails;
+    task.taskDeadline = taskDeadline;
 
-    // Remove from the creator's created task list
-    const creator = await User.findById(task.creatorId);
-    creator.createdTasks = creator.createdTasks.filter(taskId => taskId.toString() !== id);
-    await creator.save();
+    // Find new users by their usernames and extract their IDs
+    const newAssignedUsers = await Promise.all(
+      assigneeUsernames.map(async (username) => {
+        const user = await User.findOne({ username });
+        if (!user) {
+          throw new Error(`User with username ${username} not found`);
+        }
+        return { userId: user._id, assigneeUsername: user.username };
+      })
+    );
+
+    // Update the assigned users list
+    const oldAssignedUsers = task.assignedUsers;
+    task.assignedUsers = newAssignedUsers;
+    task.assigneeUsernames = assigneeUsernames;
+
+    // Save the updated task
+    await task.save();
+
+    // Remove task from old assigned users' assignedTasks list
+    await Promise.all(
+      oldAssignedUsers.map(async ({ userId }) => {
+        const user = await User.findById(userId);
+        if (user) {
+          user.assignedTasks = user.assignedTasks.filter(id => id.toString() !== taskId);
+          await user.save();
+        }
+      })
+    );
+
+    // Add task to new assigned users' assignedTasks list
+    await Promise.all(
+      newAssignedUsers.map(async ({ userId }) => {
+        const user = await User.findById(userId);
+        if (!user.assignedTasks.includes(taskId)) {
+          user.assignedTasks.push(taskId);
+          await user.save();
+        }
+      })
+    );
+
+    res.status(200).json({ message: 'Task updated successfully', task });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+
+module.exports.delete_task = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const taskId=id;
+    console.log(taskId);
+    
+    // Find the task by ID
+    const task = await Task.findById(taskId);
+    console.log(task)
+    if (!task) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+
+    // Remove the task from the creator's createdTasks list
+    const creator = await User.findOne({ username: task.creatorUsername });
+    console.log(creator);
+    
+    if (creator) {
+      creator.createdTasks = creator.createdTasks.filter(id => id.toString() !== taskId);
+      await creator.save();
+    }
+
+    // Remove the task from each assigned user's assignedTasks list
+    const assignedUsers = task.assignedUsers;
+    await Promise.all(
+      assignedUsers.map(async ({ userId }) => {
+        const user = await User.findById(userId);
+        if (user) {
+          user.assignedTasks = user.assignedTasks.filter(id => id.toString() !== taskId);
+          await user.save();
+        }
+      })
+    );
+
+    // Delete the task from the database
+    await Task.findByIdAndDelete(taskId);
 
     res.status(200).json({ message: 'Task deleted successfully' });
   } catch (error) {
@@ -129,19 +239,3 @@ module.exports.delete_task = async (req, res) => {
   }
 };
 
-// Edit a task by ID
-module.exports.edit_task = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const updatedTaskData = req.body;
-
-    const updatedTask = await Task.findByIdAndUpdate(id, updatedTaskData, { new: true });
-    if (!updatedTask) {
-      return res.status(404).json({ message: 'Task not found' });
-    }
-
-    res.status(200).json({ message: 'Task updated successfully', task: updatedTask });
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};

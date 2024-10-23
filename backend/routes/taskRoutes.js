@@ -14,8 +14,9 @@ router.get('/:id', taskController.get_task);
 // Delete a task by ID
 router.delete('/:id', taskController.delete_task);
 
-// Edit a task by ID
-router.patch('/:id', taskController.edit_task);
+router.patch('/:id', taskController.update_task);
 
 router.get('/user/:username', taskController.get_task_by_username)
+
+
 module.exports = router;
