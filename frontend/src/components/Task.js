@@ -27,6 +27,24 @@ const TaskList = () => {
     }
   }, [username1]); 
 
+ 
+  const handleDelete = async (taskId) => {
+    try {
+      const response = await fetch(`/api/task/${taskId}`, {
+        method: 'DELETE'
+      });
+      if (response.ok) {
+       
+        setTasks((prevTasks) => prevTasks.filter(task => task._id !== taskId));
+      } else {
+        const data = await response.json();
+        setError(data.message || 'Failed to delete task.');
+      }
+    } catch (error) {
+      setError('Error deleting task: ' + error.message);
+    }
+  };
+
   return (
     <div className="task-list-container">
       <h2>All Tasks</h2>
@@ -40,6 +58,7 @@ const TaskList = () => {
               {task.assignedUsers.map(user => user.userId.username).join(', ')}
             </p>
             <p>Deadline: {new Date(task.taskDeadline).toLocaleDateString()}</p>
+            <button onClick={() => handleDelete(task._id)}>Delete Task</button> 
           </li>
         ))}
       </ul>
