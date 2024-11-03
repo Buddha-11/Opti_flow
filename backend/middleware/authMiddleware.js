@@ -3,24 +3,23 @@ const User = require('../models/User');
 
 
 const requireAuth = (req, res, next) => {
-  const token = req.cookies.jwt;
+  const token = req.cookies.jwt; // Get token from cookie
 
-  // check json web token exists & is verified
   if (token) {
     jwt.verify(token, 'net ninja secret', (err, decodedToken) => {
       if (err) {
         console.log(err.message);
-        
-        //res.render('./login');
+        res.status(401).json({ message: 'Unauthorized' });
       } else {
-        console.log(decodedToken);
+        req.user = decodedToken; // Attach the decoded token (user info) to req.user
         next();
       }
     });
   } else {
-    //res.render('./login');
+    res.status(401).json({ message: 'Authorization token required' });
   }
 };
+
 
 // check current user
 const checkUser = (req, res, next) => {
