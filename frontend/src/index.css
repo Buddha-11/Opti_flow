@@ -315,7 +315,7 @@ body {
 
 /* General styling */
 body {
-  background-color: grey; /* Light gray background for contrast */
+  /* background-color: grey; Light gray background for contrast */
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -380,6 +380,7 @@ body {
 }
 
 .task-form-container button {
+  
   width: 100%;
   padding: 12px;
   background-color: #00bfff; /* Bright blue button */
@@ -444,4 +445,10 @@ body {
   font-weight: bold;
   text-align: center;
   margin-bottom: 15px;
+}
+.spacer {
+  height: 70px; /* Adjust this value to control the space */
+}
+.spacer2{
+  height: 220px;
 }
