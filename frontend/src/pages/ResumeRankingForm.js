@@ -21,15 +21,15 @@ const ResumeRankingForm = () => {
 
     // Create FormData and append fields
     const formData = new FormData();
-    formData.append('job_description', jobDescription);
+    formData.append('jd', jobDescription); // Change to 'jd' to match backend
 
     // Append each resume file to FormData
     for (let i = 0; i < resumes.length; i++) {
-      formData.append('resumes', resumes[i]);
+      formData.append('files', resumes[i]); // Change to 'files' to match backend
     }
-    console.log(formData);
+
     try {
-      const response = await fetch('http://127.0.0.1:5000/analyze-resume', {
+      const response = await fetch('http://127.0.0.1:5000/analyze-resumes', {
         method: 'POST',
         body: formData,
       });
@@ -39,8 +39,7 @@ const ResumeRankingForm = () => {
       if (!response.ok) {
         setErrors({ ...errors, form: 'Failed to rank resumes. Please try again.' });
       } else {
-        console.log(json)
-        setRankedResumes(json.ranked_resumes);
+        setRankedResumes(json); // Directly use the JSON array of sorted results
         setErrors({ jobDescription: '', resumes: '', form: '' });
         setJobDescription('');
         setResumes(null); // Reset resumes after submission
@@ -85,9 +84,11 @@ const ResumeRankingForm = () => {
           <ul>
             {rankedResumes.map((resume, index) => (
               <li key={index}>
-                {resume.filename} - Score: {resume.score} 
-                <br/>
-                Review: {resume.response}
+                <strong>{resume.file_name}</strong> - Score: {resume.ats_score}
+                <br />
+                Missing Keywords: {resume.missing_keywords.join(', ')}
+                <br />
+                Profile Summary: {resume.profile_summary}
               </li>
             ))}
           </ul>
