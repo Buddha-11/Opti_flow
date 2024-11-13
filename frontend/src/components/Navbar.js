@@ -34,6 +34,8 @@ const Navbar = () => {
               <h3>{username1}</h3>
               <Link to="/profile">Profile</Link>
               <Link to="/update_profile">Update Profile</Link>
+              <Link to="/create_task">Create Task</Link>
+              <Link to="/resume_review">Review Resume</Link>
             </>
           ) : (
             <Link to="/login">Login</Link>
