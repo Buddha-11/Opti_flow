@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/user';
+import Navbar from '../components/Navbar';
 import '../index.css';
 import { jwtDecode } from 'jwt-decode'; // Correct import without curly braces
 
@@ -92,6 +93,9 @@ const ProfileUpdate = () => {
   }
 
   return (
+    <div>
+    <Navbar />
+    <div className="spacer2"></div>
     <form className="create" onSubmit={handleSubmit}>
       <h3>Update Profile</h3>
 
@@ -118,6 +122,7 @@ const ProfileUpdate = () => {
       </button>
       {errors.form && <div className="error">{errors.form}</div>}
     </form>
+    </div>
   );
 };
 

@@ -1,15 +1,16 @@
 import { useState } from 'react';
+import Navbar from '../components/Navbar';
+import '../index.css'; // Ensure this is linked to your global CSS file
 
 const ResumeRankingForm = () => {
   const [jobDescription, setJobDescription] = useState('');
-  const [resumes, setResumes] = useState(null); // File input for multiple resumes
+  const [resumes, setResumes] = useState(null);
   const [rankedResumes, setRankedResumes] = useState([]);
   const [errors, setErrors] = useState({ jobDescription: '', resumes: '', form: '' });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate inputs
     if (!jobDescription.trim() || !resumes || resumes.length === 0) {
       setErrors({
         ...errors,
@@ -19,15 +20,13 @@ const ResumeRankingForm = () => {
       return;
     }
 
-    // Create FormData and append fields
     const formData = new FormData();
     formData.append('job_description', jobDescription);
 
-    // Append each resume file to FormData
     for (let i = 0; i < resumes.length; i++) {
       formData.append('resumes', resumes[i]);
     }
-    console.log(formData);
+
     try {
       const response = await fetch('http://127.0.0.1:5000/analyze-resume', {
         method: 'POST',
@@ -39,11 +38,10 @@ const ResumeRankingForm = () => {
       if (!response.ok) {
         setErrors({ ...errors, form: 'Failed to rank resumes. Please try again.' });
       } else {
-        console.log(json)
         setRankedResumes(json.ranked_resumes);
         setErrors({ jobDescription: '', resumes: '', form: '' });
         setJobDescription('');
-        setResumes(null); // Reset resumes after submission
+        setResumes(null);
       }
     } catch (err) {
       console.error('Request failed:', err);
@@ -52,7 +50,12 @@ const ResumeRankingForm = () => {
   };
 
   return (
-    <div className="form_container">
+    <div className="form-container">
+      <Navbar />
+
+      {/* Spacer div */}
+      <div className="spacer"></div>
+
       <form className="create" onSubmit={handleSubmit}>
         <h3>Submit Job Description and Resumes</h3>
 
@@ -78,15 +81,14 @@ const ResumeRankingForm = () => {
         {errors.form && <div className="error">{errors.form}</div>}
       </form>
 
-      {/* Display ranked resumes */}
       {rankedResumes.length > 0 && (
         <div className="results">
           <h3>Ranked Resumes</h3>
           <ul>
             {rankedResumes.map((resume, index) => (
               <li key={index}>
-                {resume.filename} - Score: {resume.score} 
-                <br/>
+                {resume.filename} - Score: {resume.score}
+                <br />
                 Review: {resume.response}
               </li>
             ))}
