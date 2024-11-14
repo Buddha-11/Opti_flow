@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import {jwtDecode} from 'jwt-decode'; // Make sure this is the correct import
+import Navbar from '../components/Navbar';
 
 const Profile = () => {
   const [userData, setUserData] = useState({ username: '', designation: '' });
@@ -51,10 +52,14 @@ const Profile = () => {
   }
 
   return (
+    <div>
+      <Navbar />
+      <div className="spacer2"></div>
     <div className="profile">
       <h2>Profile</h2>
       <p><strong>Username:</strong> {userData.username || 'Not available'}</p>
       <p><strong>Designation:</strong> {userData.designation || 'Not available'}</p>
+    </div>
     </div>
   );
 };
