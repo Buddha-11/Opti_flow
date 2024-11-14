@@ -1,6 +1,6 @@
 /* General Body Styling */
 body {
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   background-color: #121212; /* Dark background */
   color: white;
   margin: 0;
@@ -69,25 +69,25 @@ body {
 
 /* Login and Forgot Password Links */
 .extra-options {
-  display: flex; 
-  justify-content: center;  /* Center the items */
-  align-items: center;      /* Align items vertically in the center */
-  margin-top: 20px; 
-  gap: 15px;                /* Add space between links */
+  display: flex;
+  justify-content: center; /* Center the items */
+  align-items: center; /* Align items vertically in the center */
+  margin-top: 20px;
+  gap: 15px; /* Add space between links */
 }
 
 .create a {
-  color: #ffffff; 
-  text-decoration: none; 
-  font-size: 1rem; 
-  padding: 8px 12px;       /* Add padding for clickable area */
-  border-radius: 5px;      /* Rounded corners */
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 8px 12px; /* Add padding for clickable area */
+  border-radius: 5px; /* Rounded corners */
   background-color: transparent; /* Transparent background */
   transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
 }
 
 .create a:hover {
-  color: #ffffff;          /* Keep text color on hover */
+  color: #ffffff; /* Keep text color on hover */
 }
 
 /* OTP Verification Section */
@@ -142,7 +142,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #000000; /* Black background */
+  background-color: #2a2a2a; /* Black background */
   padding: 10px 20px; /* Adjusted padding for responsiveness */
   position: fixed; /* Fixed positioning */
   top: 0; /* Stick to the top */
@@ -229,7 +229,11 @@ body {
   margin: 0 auto;
   padding: 30px; /* Added more padding for spacious layout */
   color: grey;
-  background: linear-gradient(135deg, #f0f0f0, #e6e6e6); /* Soft gradient background */
+  background: linear-gradient(
+    135deg,
+    #f0f0f0,
+    #e6e6e6
+  ); /* Soft gradient background */
   border-radius: 12px; /* Slightly more rounded corners */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly deeper shadow */
   text-align: center;
@@ -246,7 +250,7 @@ body {
   font-size: 2.2rem; /* Slightly larger heading */
   margin-bottom: 1.5rem;
   color: #333;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   letter-spacing: 1px; /* Added letter spacing for a more refined look */
   text-transform: uppercase; /* Capitalized heading for emphasis */
 }
@@ -256,7 +260,7 @@ body {
   font-size: 1.3rem; /* Slightly larger text */
   margin-bottom: 1.5rem; /* Increased spacing between paragraphs */
   color: #444; /* Darkened text color for better contrast */
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   line-height: 1.6; /* Improved line spacing */
 }
 
@@ -324,9 +328,13 @@ body {
   justify-content: center;
   align-items: center;
 }
-.task-form-container, 
+.task-form-container,
 .task-list-container {
-  background: linear-gradient(135deg, #2a2a2a, #1e1e1e); /* Gradient background */
+  background: linear-gradient(
+    135deg,
+    #2a2a2a,
+    #1e1e1e
+  ); /* Gradient background */
   color: #ffffff;
   padding: 35px; /* Increased padding for a bigger look */
   border-radius: 15px;
@@ -337,7 +345,7 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.task-form-container:hover, 
+.task-form-container:hover,
 .task-list-container:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
@@ -345,7 +353,7 @@ body {
 
 /* Task form specific styling */
 .task-form-container h2 {
-  color: #007bff; /* Light blue for headings */
+  color: #00bfff; /* Light blue for headings */
   margin-bottom: 20px;
   text-align: center;
 }
@@ -380,10 +388,9 @@ body {
 }
 
 .task-form-container button {
-  
   width: 100%;
   padding: 12px;
-  background-color: #007bff; /* Bright blue button */
+  background-color: #00bfff; /* Bright blue button */
   color: #ffffff;
   border: none;
   border-radius: 8px;
@@ -449,43 +456,42 @@ body {
 .spacer {
   height: 70px; /* Adjust this value to control the space */
 }
-.spacer2{
+.spacer2 {
   height: 220px;
 }
-
-
-
 .content {
   display: flex;
   align-items: center;
   gap: 30px; /* Space between text and image */
   padding: 20px;
 }
-
 .text h1 {
-  font-size: 2.5rem;  /* Large font for prominent display */
+  font-size: 2.5rem; /* Large font for prominent display */
   font-weight: bolder;
   color: wheat;
   line-height: 1.2;
   margin: 0;
 }
-
 .text h1 strong {
-  color: #007BFF; /* Blue color to highlight 'OptiFlow' */
+  color: #007bff; /* Blue color to highlight 'OptiFlow' */
   font-weight: bolder;
 }
-
 .image {
   flex-shrink: 0; /* Prevents image from shrinking */
 }
-
 .image img {
   max-width: 100%;
   height: auto;
   object-fit: contain;
   border-radius: 8px; /* Optional: add rounded corners */
 }
-
-.spacer3{
-  height: 480px;
+.spacer3 {
+  height: 300px;
 }
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+

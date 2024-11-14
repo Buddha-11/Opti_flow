@@ -1,9 +1,12 @@
-import '../index.css'
-import Navbar from '../components/Navbar'
-import TaskList from '../components/Task'
-import Image from '../images/Home_Image.png'
+import React from "react";
+import '../index.css';
+import Navbar from '../components/Navbar';
+import TaskList from '../components/Task';
+import Image from '../images/Home_Image.png';
 
 const Home = () => {
+    const projectName = "OptiFlow";
+
     return (
         <div className="home">
             <Navbar />
@@ -11,7 +14,28 @@ const Home = () => {
             
             <div className="content">
                 <div className="text">
-                    <h1>Optimize your workflow with <strong>OptiFlow</strong></h1>
+                    <h1>
+                        <span style={{ color: "skyblue" }}>Opti</span>mize your work
+                        <span style={{ color: "skyblue" }}>flow</span> with <br />
+                        <strong style={{
+                            fontSize: "80px",
+                            display: "inline-block",
+                            color: "#00bfff"
+                        }}>
+                            {projectName.split("").map((letter, index) => (
+                                <span
+                                    key={index}
+                                    style={{
+                                        opacity: 0,
+                                        animation: `fadeIn 0.5s forwards`,
+                                        animationDelay: `${index * 0.1}s`
+                                    }}
+                                >
+                                    {letter}
+                                </span>
+                            ))}
+                        </strong>
+                    </h1>
                 </div>
                 <div className="image">
                     <img src={Image} alt="Workflow optimization" />
@@ -22,7 +46,7 @@ const Home = () => {
                 <TaskList />
             </div>
         </div>
-    )
+    );
 }
 
-export default Home
+export default Home;
