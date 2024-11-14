@@ -74,7 +74,7 @@ def process_resume():
             return jsonify({"error": "Error parsing the AI response"}), 500
         
         # Store each result with the ATS Score for sorting
-        ats_score = int(response_data["JD Match"].strip("%"))  # Convert percentage to integer for sorting
+        ats_score = round(float(response_data["JD Match"].strip("%")))  # Convert percentage to integer for sorting
         results.append({
             "file_name": uploaded_file.filename,
             "ats_score": ats_score,
