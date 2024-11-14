@@ -345,7 +345,7 @@ body {
 
 /* Task form specific styling */
 .task-form-container h2 {
-  color: #00bfff; /* Light blue for headings */
+  color: #007bff; /* Light blue for headings */
   margin-bottom: 20px;
   text-align: center;
 }
@@ -383,7 +383,7 @@ body {
   
   width: 100%;
   padding: 12px;
-  background-color: #00bfff; /* Bright blue button */
+  background-color: #007bff; /* Bright blue button */
   color: #ffffff;
   border: none;
   border-radius: 8px;
