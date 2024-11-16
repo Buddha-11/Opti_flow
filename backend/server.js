@@ -7,6 +7,7 @@ const taskRoutes = require('./routes/taskRoutes')
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 const cookieParser = require('cookie-parser');
 
+const port = process.env.PORT || 4000;
 const app=express();
 app.use(cookieParser());
 //middleware
