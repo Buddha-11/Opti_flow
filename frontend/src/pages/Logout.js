@@ -14,7 +14,7 @@ const Logout = () => {
 
         if (response.ok) {
           console.log('User logged out successfully');
-          navigate('/login'); // Redirect to login page after logout
+          navigate('/'); // Redirect to login page after logout
         } else {
           console.error('Failed to log out');
         }
