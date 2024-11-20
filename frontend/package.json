@@ -16,6 +16,7 @@
     "web-vitals": "^2.1.4",
     "typewriter-effect": "^2.21.0",
     "cookie-parser": "^1.4.6",
+    "jsonwebtoken": "^9.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
