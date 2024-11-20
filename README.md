@@ -20,6 +20,7 @@ Visualizes data with charts and insights for decision-makers.
 5. Secure and Scalable
 Built with advanced security protocols to protect sensitive employee and business data.
 Scales effortlessly to accommodate businesses of all sizes.
+
 #🛠️ Tech Stack
 Frontend: React.js
 Backend: Node.js, Express.js
