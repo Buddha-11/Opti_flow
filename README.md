@@ -2,7 +2,7 @@
 
 Opti_Flow is an innovative enterprise management system designed to revolutionize employee task management and streamline HR operations using Machine Learning (ML). Built for modern businesses, Opti_Flow simplifies workflows, enhances productivity, and provides intelligent solutions to HR challenges such as resume selection and applicant management.
 
-#🚀 Features
+🚀 Features
 1. Employee Task Management
 Automates task allocation to employees based on skills and availability.
 Tracks task progress in real-time with intuitive dashboards.
@@ -21,7 +21,7 @@ Visualizes data with charts and insights for decision-makers.
 Built with advanced security protocols to protect sensitive employee and business data.
 Scales effortlessly to accommodate businesses of all sizes.
 
-#🛠️ Tech Stack
+🛠️ Tech Stack
 Frontend: React.js
 Backend: Node.js, Express.js
 Database: MongoDB
@@ -29,12 +29,12 @@ Machine Learning: Python (integrated for intelligent task management and resume 
 Other Tools: REST APIs, JWT for authentication, and cookie-based session management.
 
 
-#START-MANUAL
+🔑START-UP MANUAL
 
 Well first of all do --->
 git clone https://github.com/Buddha-11/Opti_flow
 
-Then in both frontend and backend folder command terminal as --->
+Then in both frontend and backend folder command your terminal as --->
 npm install 
 (Will Install all dependancies)
 
@@ -43,6 +43,3 @@ And now just do
 2.Frontend: npm start
 
 And Then You are Good To GOOOO with our great web-application.
-
-
-Deploying Soon.....
