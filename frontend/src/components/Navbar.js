@@ -40,7 +40,7 @@ const Navbar = () => {
   return (
     <header>
       <div className="Nav">
-        <Link to="/">
+        <Link to="/home">
           <h1>Optiflow</h1>
         </Link>
 
