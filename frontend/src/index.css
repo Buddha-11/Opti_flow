@@ -159,7 +159,7 @@ body {
   color: #ffffff; /* White links */
   margin-left: 10px; /* Space between links */
   font-size: 16px; /* Adjusted font size */
-  font-weight: bolder;
+  font-weight: 1000;
   transition: color 0.3s ease;
   font-family: Arial, Helvetica, sans-serif;
   letter-spacing: 2px;
@@ -387,16 +387,34 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}.task-form-container,
+}
+.task-form-container {
+  background: linear-gradient(135deg, #3b3b3b, #2a2a2a); /* Subtle gradient for a modern look */
+  position: relative; /* Changed from absolute for better responsiveness */
+  top: 75px; /* Adjusted position */
+  color: #ffffff;
+  padding: 30px; /* Adequate padding for a neat layout */
+  padding-right: 60px;
+  border-radius: 20px; /* Softer corners */
+  max-width: 600px; /* Balanced container width */
+  margin: 50px auto; /* Center alignment */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Softer shadow for a clean look */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 400px;
+}
 .task-list-container {
   background: linear-gradient(135deg, #3b3b3b, #2a2a2a); /* Subtle gradient for a modern look */
   position: relative; /* Changed from absolute for better responsiveness */
   top: 600px; /* Adjusted position */
   color: #ffffff;
   padding: 30px; /* Adequate padding for a neat layout */
-  border-radius: 20px; /* Softer corners */
-  max-width: 600px; /* Balanced container width */
-  margin: 50px auto; /* Center alignment */
+  padding-left: 50px;
+  padding-right: 50px;
+  border-radius: 20px; /* Softer corners */ 
+  width: 400px;
+  margin: 100px auto; /* Center alignment */
+  margin-top: 300px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Softer shadow for a clean look */
   border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -472,18 +490,19 @@ body {
   margin-bottom: 25px;
   text-align: center;
   font-size: 1.8rem; /* Slightly larger heading font */
+  width: auto;
 }
 
 .task-list {
   list-style-type: none;
   padding: 0;
-  margin: 0;
+  margin-bottom: 20px;
 }
 
 .task-item {
   background-color: #2b2b2b; /* Dark but contrasting background */
   padding: 20px;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow */
   transition: background-color 0.3s ease, transform 0.3s ease;
@@ -505,7 +524,19 @@ body {
   font-size: 0.9rem; /* Slightly smaller for description */
   color: #cccccc; /* Lighter text for task details */
 }
-
+.task-item button {
+  background-color: #ff4c4c; /* Red color for danger */
+  color: #ffffff; /* White text */
+  padding: 5px 10px;
+  border: none;
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+  margin-top: 10px;
+}
 
 /* Error and success messages */
 .error-message {
@@ -525,7 +556,7 @@ body {
   height: 70px; /* Adjust this value to control the space */
 }
 .spacer2 {
-  height: 220px;
+  height: 10px;
 }
 /* General content container styling */
 .content {
