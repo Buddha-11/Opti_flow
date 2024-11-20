@@ -38,10 +38,12 @@ const userSchema = new mongoose.Schema({
   assignedTasks: [{  // List of tasks assigned to the user
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Task'
+  }],
+  conversations: [{  // List of conversations the user is involved in
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Conversation'
   }]
 });
-
-
 
 // fire a function before doc saved to db
 userSchema.pre('save', async function(next) {
@@ -52,11 +54,8 @@ userSchema.pre('save', async function(next) {
 
 // static method to login user
 userSchema.statics.login = async function(email, password) {
-
   const user = await this.findOne({
-    $or: [
-       {email}
-    ]
+    $or: [{ email }]
   });
 
   if (!user) {
@@ -68,37 +67,34 @@ userSchema.statics.login = async function(email, password) {
     throw new Error('Incorrect password');
   }
 
-  return user; 
+  return user;
 };
 
-
 // static signup method
-userSchema.statics.signup = async function(email, username  ,password ,admin, designation) {
-  console.log(email, username , designation ,password ,admin);
+userSchema.statics.signup = async function(email, username, password, admin, designation) {
+  console.log(email, username, designation, password, admin);
   // validation
   if (!email || !password || !username || !designation) {
-    throw Error('All fields must be filled')
+    throw Error('All fields must be filled');
   }
   if (!validator.isEmail(email)) {
-    throw Error('Email not valid')
+    throw Error('Email not valid');
   }
   if (!validator.isStrongPassword(password)) {
-    throw Error('Password not strong enough')
+    throw Error('Password not strong enough');
   }
 
-  const exists = await this.findOne({ email })
+  const exists = await this.findOne({ email });
 
   if (exists) {
-    throw Error('Email already in use')
+    throw Error('Email already in use');
   }
 
-  // const salt = await bcrypt.genSalt(10)
-  // const hash = await bcrypt.hash(password, salt)
+  const user = await this.create({ email, username, password, admin, designation });
 
-  const user = await this.create({ email, username , password,admin ,designation})
-
-  return user
+  return user;
 }
-const User = mongoose.model('user', userSchema);
+
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;

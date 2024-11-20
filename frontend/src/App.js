@@ -14,6 +14,7 @@ import Logout from './pages/Logout.js';
 import Profile from './pages/Profile.js';
 import ResumeRankingForm from './pages/ResumeRankingForm.js';
 import Task from './pages/AddTask.js';
+import Chat from './pages/Chat.js';
 function App() {
   return (
     <div className="App">
@@ -28,6 +29,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/sendEmail" element={<MyForm />} />
             <Route path="/forgot_password" element={<ForgotForm />} />
+            <Route path="/chat" element={<Chat/>} />
             <Route path="/resume_review" element={<ProtectedRoute adminOnly={true}><ResumeRankingForm /></ProtectedRoute>} />
             {/* Admin-only protected routes */}
             <Route 
