@@ -812,3 +812,117 @@ body {
 body {
   padding-top: 60px; /* Space for sticky navbar */
 }
+/* Popup Overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Dark overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out; /* Fade-in effect for the overlay */
+}
+
+/* Popup Content */
+.popup-content {
+  background-color: #fff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+  width: 100%;
+  max-width: 500px; /* Set max-width for better responsiveness */
+  animation: slideUp 0.3s ease-out; /* Slide-up animation */
+  background-color: transparent;
+}
+
+/* Close Button */
+.close-button {
+  position: absolute;
+  top: 100px;
+  right: 80px;
+  background-color: red;
+  border-radius: 50%;
+  border: none;
+  font-size: 24px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #e74c3c; /* Change color on hover for better interaction */
+}
+
+/* Form Input Fields */
+.popup-content input[type="text"],
+.popup-content input[type="email"],
+.popup-content input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.popup-content input[type="text"]:focus,
+.popup-content input[type="email"]:focus,
+.popup-content input[type="password"]:focus {
+  border-color: #3498db; /* Blue border on focus */
+  box-shadow: 0 0 8px rgba(52, 152, 219, 0.3); /* Focused shadow effect */
+  outline: none;
+}
+
+/* Submit Button */
+.popup-content button[type="button"] {
+  width: 100%;
+  padding: 14px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.popup-content button[type="button"]:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 500px) {
+  .popup-content {
+    padding: 20px 30px;
+    width: 90%;
+    max-width: 100%;
+  }
+}
+
+/* Fade-in and Slide-up Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
