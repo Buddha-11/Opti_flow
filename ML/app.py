@@ -1,116 +1,94 @@
-from dotenv import load_dotenv
-import base64
-import os
-import io
-from PIL import Image
-import pdf2image
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 import google.generativeai as genai
-import logging
-
+import os
+import PyPDF2 as pdf
+from dotenv import load_dotenv
+import json
+from flask_cors import CORS
 # Load environment variables
 load_dotenv()
 
-# Configure Google Gemini API
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-
-# Initialize Flask App
+# Initialize Flask app
 app = Flask(__name__)
 CORS(app)
-# Set the absolute path to poppler's bin folder (change as per your system)
-POPPLER_PATH = r"C:\Program Files (x86)\poppler-24.08.0\Library\bin"
+# Configure Google AI API
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
-# Set up logging
-# logging.basicConfig(level=logging.DEBUG)
-
-def get_gemini_response(input_text, pdf_content, prompt):
-    logging.debug(f"Input to Gemini - Text: {input_text}, PDF Content: {pdf_content}")
-    model = genai.GenerativeModel('gemini-1.5-flash')
-    response = model.generate_content([input_text, pdf_content[0], prompt])
-    logging.debug(f"Response from Gemini: {response}")
+# Function to get the response from the generative AI model
+def get_gemini_response(input):
+    model = genai.GenerativeModel('gemini-pro')
+    response = model.generate_content(input)
     return response.text
 
-def input_pdf_setup(uploaded_file):
-    if uploaded_file is not None:
-        logging.debug(f"File uploaded: {uploaded_file.filename}")
-        images = pdf2image.convert_from_bytes(uploaded_file.read())
-        logging.debug(f"Number of pages in the PDF: {len(images)}")
-        first_page = images[0]
-        
-        img_byte_arr = io.BytesIO()
-        first_page.save(img_byte_arr, format='JPEG')
-        img_byte_arr = img_byte_arr.getvalue()
-        
-        pdf_parts = [
-            {
-                "mime_type": "image/jpeg",
-                "data": base64.b64encode(img_byte_arr).decode()  # encode to base64
-            }
-        ]
-        logging.debug(f"Processed first page of PDF to image (base64 encoded).")
-        return pdf_parts
-    else:
-        logging.error("No file uploaded")
-        raise FileNotFoundError("No file uploaded")
+# Function to extract text from a PDF file
+def input_pdf_text(uploaded_file):
+    reader = pdf.PdfReader(uploaded_file)
+    text = ""
+    for page in range(len(reader.pages)):
+        page = reader.pages[page]
+        text += str(page.extract_text())
+    return text
 
-def calculate_match_score(response):
-    logging.debug(f"Response for score calculation: {response}")
-    # Extract percentage match from response
-    try:
-        score = float(response.split('%')[0].strip())
-    except ValueError:
-        logging.error(f"Error parsing score from response: {response}")
-        score = 0.0  # Default to 0 if no valid percentage found
-    return score
+# Prompt template
+input_prompt = """
+Hey Act Like a skilled or very experience ATS(Application Tracking System)
+with a deep understanding of tech field, software engineering, data science, data analyst,
+and big data engineer. Your task is to evaluate the resume based on the given job description.
+You must consider the job market is very competitive and you should provide 
+best assistance for improving the resumes. Assign the percentage Matching based 
+on JD and the missing keywords with high accuracy.
+resume:{text}
+description:{jd}
 
-# Flask Route to Handle Resume Analysis
-@app.route('/analyze-resume', methods=['POST'])
-def analyze_resume():
-    logging.info("Received request to analyze resume")
-    
-    # Expecting job description and resumes in the request
-    job_description = request.form.get('job_description')
-    if 'resumes' not in request.files or not job_description:
-        logging.error("Job description or resumes missing in the request")
-        return jsonify({"error": "Job description and resumes are required"}), 400
-    
-    uploaded_files = request.files.getlist('resumes')
-    
-    # Limit to 5 PDFs
-    if len(uploaded_files) > 5:
-        uploaded_files = uploaded_files[:5]
-    
-    input_prompt = """
-    You are a skilled ATS (Applicant Tracking System) scanner with a deep understanding of data science and ATS functionality. 
-    Your task is to evaluate the resume against the provided job description. Provide a percentage match, followed by missing keywords, 
-    and finally your professional thoughts. be a bit harsh on precentage match if something is missing do deduct points . FOR EACH MISSING KEYWORD SCORE SHOULD BE DECREASED BY 0.5 OUT OF THE FINAL SCORE, IF THE USER IS EXPERT AT SOME OTHER FIELD (APP DEV , WEB DEV , CYBER SEC DEV ) THAN THE REQUIREMENT THEN THE SCORE MUST BE LESS THAN 5 OUT OF 10, GIVE A SCORE OUT OF 10 IN THE END
-    """
-    
-    scores = []
-    
-    for file in uploaded_files:
+I want the response in one single string having the structure
+{{"JD Match":"%","MissingKeywords:[]","Profile Summary":""}}
+"""
+
+# Define API endpoint for handling file uploads and job description
+@app.route('/analyze-resumes', methods=['POST'])
+def process_resume():
+    # Check if both the job description and file are provided
+    if 'jd' not in request.form or 'files' not in request.files:
+        return jsonify({"error": "Job description or files not provided"}), 400
+
+    jd = request.form['jd']
+    uploaded_files = request.files.getlist('files')
+
+    results = []
+
+    # Iterate over each uploaded file and process it
+    for uploaded_file in uploaded_files:
+        # Extract text from each PDF
+        text = input_pdf_text(uploaded_file)
+        
+        # Format the input prompt with the extracted text and JD
+        formatted_prompt = input_prompt.format(text=text, jd=jd)
+        
+        # Get response from generative AI model
+        response = get_gemini_response(formatted_prompt)
+        
+        # Parse the response JSON string to extract specific elements
         try:
-            pdf_content = input_pdf_setup(file)
-            response = get_gemini_response(job_description, pdf_content, input_prompt)
-            score = calculate_match_score(response)
-            scores.append({
-                "filename": file.filename,
-                "score": score,
-                "response": response
-            })
-        except Exception as e:
-            logging.error(f"Error processing file {file.filename}: {str(e)}")
+            response_data = json.loads(response)  # Convert response string to JSON
+        except json.JSONDecodeError:
+            return jsonify({"error": "Error parsing the AI response"}), 500
+        
+        # Store each result with the ATS Score for sorting
+        ats_score = round(float(response_data["JD Match"].strip("%")))  # Convert percentage to integer for sorting
+        results.append({
+            "file_name": uploaded_file.filename,
+            "ats_score": ats_score,
+            "missing_keywords": response_data["MissingKeywords"],
+            "profile_summary": response_data["Profile Summary"]
+        })
     
-    # Sort by score in decreasing order
-    scores.sort(key=lambda x: x['score'], reverse=True)
-    
-    # Log final ranked scores
-    logging.info(f"Final ranked resumes: {scores}")
-    
-    # Return a JSON response with ranked resumes
-    return jsonify({"ranked_resumes": scores}), 200
+    # Sort results by ATS Score in descending order
+    sorted_results = sorted(results, key=lambda x: x["ats_score"], reverse=True)
 
+    # Return the results as JSON
+    return jsonify(sorted_results)
+
+
+# Start Flask app
 if __name__ == '__main__':
-    logging.info("Starting Flask app")
     app.run(debug=True)
