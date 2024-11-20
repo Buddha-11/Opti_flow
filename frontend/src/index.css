@@ -285,97 +285,97 @@ body {
 /* Profile Container */
 .profile {
   width: 100%;
-  max-width: 700px; /* Increased max-width for a larger layout */
-  margin: 0 auto;
-  padding: 30px; /* Added more padding for spacious layout */
-  color: grey;
-  background: linear-gradient(
-    135deg,
-    #f0f0f0,
-    #e6e6e6
-  ); /* Soft gradient background */
-  border-radius: 12px; /* Slightly more rounded corners */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly deeper shadow */
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 700px; /* Maximum width of the profile container */
+  margin: 0 auto; /* Center the profile container */
+  padding: 40px; /* Spacious padding */
+  color: #444; /* Text color */
+  background: linear-gradient(135deg, #f3f4f8, #e4e8eb); /* Elegant gradient */
+  border-radius: 20px; /* Rounded corners for a soft appearance */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1); /* Deep shadow for depth */
+  text-align: center; /* Centered text */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .profile:hover {
-  transform: translateY(-5px); /* Subtle lift on hover */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+  transform: translateY(-8px); /* Lift effect on hover */
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
 }
 
 /* Heading Style */
 .profile h2 {
-  font-size: 2.2rem; /* Slightly larger heading */
-  margin-bottom: 1.5rem;
-  color: #333;
-  font-family: "Arial", sans-serif;
-  letter-spacing: 1px; /* Added letter spacing for a more refined look */
-  text-transform: uppercase; /* Capitalized heading for emphasis */
+  font-size: 2.5rem; /* Larger heading for impact */
+  margin-bottom: 20px; /* Increased margin for spacing */
+  color: #2d3436; /* Darker text for readability */
+  font-family: 'Helvetica Neue', sans-serif; /* Smooth and modern font */
+  font-weight: 600; /* Medium weight for subtle emphasis */
+  letter-spacing: 1.2px; /* Slight letter spacing */
+  text-transform: uppercase; /* Capitalized heading */
+  border-bottom: 3px solid #ff7f50; /* Stylish underline */
+  padding-bottom: 10px; /* Padding below the heading */
 }
 
 /* Paragraph Styles for User Info */
 .profile p {
-  font-size: 1.3rem; /* Slightly larger text */
-  margin-bottom: 1.5rem; /* Increased spacing between paragraphs */
-  color: #444; /* Darkened text color for better contrast */
-  font-family: "Arial", sans-serif;
-  line-height: 1.6; /* Improved line spacing */
+  font-size: 1.5rem; /* Increased font size for readability */
+  margin-bottom: 20px; /* Extra margin between paragraphs */
+  color: #555; /* Slightly lighter text color */
+  font-family: 'Arial', sans-serif; /* Clean, sans-serif font */
+  line-height: 1.8; /* Increased line-height for better readability */
 }
 
 /* Bold styling for labels like Username and Designation */
 .profile p strong {
-  color: #222; /* Darker for emphasis */
-  font-weight: bold; /* Increased weight for strong text */
+  color: #333; /* Darker color for strong text */
+  font-weight: 700; /* Bold text for emphasis */
 }
 
-/* Error Message Style */
+/* Error message styling */
 .error {
-  color: #e74c3c; /* Red for errors */
-  background-color: #fde2e2; /* Softer red background */
+  background-color: #f8d7da;
+  color: #721c24;
   padding: 15px;
   border-radius: 8px;
-  margin-bottom: 1.5rem;
-  font-size: 1.1rem; /* Slightly larger text for readability */
+  margin: 20px;
+  font-size: 1.2rem;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Loading State */
+/* Loading text style */
 .loading {
-  font-size: 1.6rem; /* Larger for better visibility */
-  color: #777;
-  font-style: italic; /* Italicize to distinguish loading state */
+  text-align: center;
+  font-size: 1.5rem;
+  color: #3498db; /* Blue color to indicate loading */
+  margin-top: 50px;
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 1px;
 }
 
-/* Media Query for Responsiveness */
+/* Spacer */
+.spacer2 {
+  height: 50px; /* Vertical spacing above the profile */
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .profile {
-    padding: 20px;
+    padding: 20px; /* Reduced padding for smaller screens */
   }
 
   .profile h2 {
-    font-size: 1.8rem;
+    font-size: 2rem; /* Adjust heading size for smaller screens */
   }
 
   .profile p {
-    font-size: 1.1rem;
+    font-size: 1.2rem; /* Slightly smaller text for mobile */
   }
-}
 
-/* Media Query for Smaller Screens */
-@media (max-width: 480px) {
   .profile {
-    padding: 15px;
-  }
-
-  .profile h2 {
-    font-size: 1.5rem;
-  }
-
-  .profile p {
-    font-size: 1rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Lighter shadow for mobile */
   }
 }
+
 
 /* General styling */
 body {
