@@ -1,21 +1,32 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom'; // Import Link for navigation
-import LandingNavbar from '../components/LandingNavbar'; // Import LandingNavbar component
-import Typewriter from 'typewriter-effect'; // Import Typewriter
-import '../index.css'; // Importing the CSS
-import Image from "../images/Home_Image.png"; // Assuming the image is located here
+// LandingPage.js
+import React, { useEffect, useState } from 'react';
+import LandingNavbar from '../components/LandingNavbar';
+import Typewriter from 'typewriter-effect';
+import '../index.css';
+import Image from "../images/Home_Image.png";
+import LoginForm from './LoginForm'; // Import LoginForm
+import SignupForm from './SignupForm'; // Import SignupForm
+import Popup from './Popup'; // Import Popup component
 
 const LandingPage = () => {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
+
   useEffect(() => {
     console.log('Landing page loaded');
-  }, []); // Empty dependency array means it runs only on mount
+  }, []);
+
+  const toggleLoginPopup = () => {
+    setIsLoginOpen(!isLoginOpen);
+  };
+
+  const toggleSignupPopup = () => {
+    setIsSignupOpen(!isSignupOpen);
+  };
 
   return (
     <div className="landing-page">
-      {/* Landing Navbar */}
-      <LandingNavbar />
-
-      {/* Content Section */}
+      <LandingNavbar onLoginClick={toggleLoginPopup} onSignupClick={toggleSignupPopup} />
       <div className="content">
         <div className="text">
           <h1>
@@ -41,12 +52,8 @@ const LandingPage = () => {
             />
           </div>
           <div className="cta">
-            <Link to="/login">
-              <button className="cta-button">Login</button>
-            </Link>
-            <Link to="/signup">
-              <button className="cta-button">Sign Up</button>
-            </Link>
+            <button className="cta-button" onClick={toggleLoginPopup}>Login</button>
+            <button className="cta-button" onClick={toggleSignupPopup}>Sign Up</button>
           </div>
         </div>
 
@@ -54,6 +61,15 @@ const LandingPage = () => {
           <img src={Image} alt="Workflow optimization" />
         </div>
       </div>
+
+      {/* Popup Modals */}
+      <Popup isOpen={isLoginOpen} onClose={toggleLoginPopup}>
+        <LoginForm />
+      </Popup>
+
+      <Popup isOpen={isSignupOpen} onClose={toggleSignupPopup}>
+        <SignupForm />
+      </Popup>
     </div>
   );
 };
