@@ -18,9 +18,9 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.path}`);
     next();
   });
-//   app.get("/api",(req,res)=>{
-//     res.json("hello");
-//   })
+  app.get("/api/test",(req,res)=>{
+    res.json("hello");
+  })
   //routes
   app.use('/api', authRoutes); 
   app.use('/api', emaiRoutes);
