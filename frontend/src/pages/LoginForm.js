@@ -81,7 +81,7 @@ const LoginForm = () => {
 
         setEmail('');
         setPassword('');
-        navigate('/');
+        navigate('/home');
       }
     } catch (err) {
       console.error('Request failed:', err);

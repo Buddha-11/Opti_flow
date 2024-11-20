@@ -18,16 +18,19 @@ app.use((req, res, next) => {
     console.log(`${req.method} ${req.path}`);
     next();
   });
-
+//   app.get("/api",(req,res)=>{
+//     res.json("hello");
+//   })
   //routes
   app.use('/api', authRoutes); 
   app.use('/api', emaiRoutes);
   app.use('/api/task',taskRoutes);
   mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    app.listen(process.env.PORT, () => {
-      console.log('Connected to Database and listening on port', process.env.PORT);
-    });
+    const port = process.env.PORT || 4000; // Vercel provides the port dynamically
+    app.listen(port, () => {
+  console.log(`Connected to Database and listening on port ${port}`);
+});
   })
   .catch((error) => {
     console.error(error);
