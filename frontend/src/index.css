@@ -660,3 +660,124 @@ body {
 .spacer3 {
   height: 20px; /* Space between navbar and content */
 }
+/* Button Styles for Login and Sign Up */
+/* Button container for centering - now aligned left */
+.cta {
+  display: flex;
+  justify-content: flex-start; /* Align buttons to the left */
+  gap: 100px;
+  margin-top: 60px;
+}
+
+/* Common Button Styles */
+.cta-button {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(90deg, #00bfff, #007bff);
+  border: none;
+  border-radius: 50px;
+  padding: 15px 50px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 191, 255, 0.4);
+  letter-spacing: 1.2px;
+  font-family: 'Arial', sans-serif;
+  display: inline-block;
+}
+
+.cta-button:hover {
+  background: linear-gradient(90deg, #007bff, #00bfff);
+  box-shadow: 0 6px 18px rgba(0, 191, 255, 0.5);
+  transform: translateY(-4px);
+}
+
+.cta-button:active {
+  transform: translateY(2px);
+  box-shadow: 0 4px 12px rgba(0, 191, 255, 0.3);
+}
+
+.cta-button:focus {
+  outline: none;
+}
+
+/* Specific Button Styles for Login and Sign Up */
+.cta-button.login {
+  background: linear-gradient(90deg, #4CAF50, #45a049);
+}
+
+.cta-button.login:hover {
+  background: linear-gradient(90deg, #45a049, #4CAF50);
+}
+
+.cta-button.signup {
+  background: linear-gradient(90deg, #FF4081, #D81B60);
+}
+
+.cta-button.signup:hover {
+  background: linear-gradient(90deg, #D81B60, #FF4081);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .cta-button {
+    font-size: 16px;
+    padding: 12px 30px;
+  }
+  .cta {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(90deg, #64a3e6, #000000); /* Gradient background */
+  padding: 20px 20px; /* Adjusted padding for responsiveness */
+  position: fixed; /* Fixed positioning */
+  top: 0; /* Stick to the top */
+  left: 0; /* Stretch to the left */
+  width: 100%; /* Full width */
+  z-index: 1000; /* Above other elements */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+  flex-wrap: wrap; /* Allow items to wrap */
+
+}
+
+.navbar-left h2 {
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-link {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-right: 100px;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 25px;
+  transition: background 0.3s ease;
+}
+
+.navbar-link:hover {
+  background: #007bff;
+  cursor: pointer;
+}
+
+body {
+  padding-top: 60px; /* Space for sticky navbar */
+}
