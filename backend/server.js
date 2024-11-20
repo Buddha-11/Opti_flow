@@ -6,6 +6,8 @@ const emaiRoutes= require('./routes/emailRoutes');
 const taskRoutes = require('./routes/taskRoutes')
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
+app.use(cors());
 
 const port = process.env.PORT || 4000;
 const app=express();
