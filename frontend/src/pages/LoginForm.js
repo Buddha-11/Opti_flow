@@ -37,7 +37,7 @@ const LoginForm = () => {
     const auth = { email, password };
 
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch('http://localhost:4000/api/login', {
         method: 'POST',
         body: JSON.stringify(auth),
         headers: {

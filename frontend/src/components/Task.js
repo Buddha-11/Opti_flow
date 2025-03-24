@@ -10,7 +10,7 @@ const TaskList = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await fetch(`/api/task/user/${username1}`); 
+        const response = await fetch(`http://localhost:4000/api/task/user/${username1}`); 
         const data = await response.json();
         if (response.ok) {
           setTasks(data.tasks);
@@ -30,7 +30,7 @@ const TaskList = () => {
  
   const handleDelete = async (taskId) => {
     try {
-      const response = await fetch(`/api/task/${taskId}`, {
+      const response = await fetch(`http://localhost:4000/api/task/${taskId}`, {
         method: 'DELETE'
       });
       if (response.ok) {

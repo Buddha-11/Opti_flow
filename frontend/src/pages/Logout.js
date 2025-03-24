@@ -7,7 +7,7 @@ const Logout = () => {
   useEffect(() => {
     const logoutUser = async () => {
       try {
-        const response = await fetch('/api/logout', {
+        const response = await fetch('http://localhost:4000/api/logout', {
           method: 'POST', // You might use GET or POST depending on your backend implementation
           credentials: 'include', // Ensure cookies are included in the request
         });

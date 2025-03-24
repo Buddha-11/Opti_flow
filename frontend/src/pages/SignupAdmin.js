@@ -32,7 +32,7 @@ const AdminSignupForm = () => {
     const auth = { email, username, password, designation }; // Added designation
 
     try {
-      const response = await fetch('/api/signup_admin', {
+      const response = await fetch('http://localhost:4000/api/signup_admin', {
         method: 'POST',
         body: JSON.stringify(auth),
         headers: {
@@ -62,7 +62,7 @@ const AdminSignupForm = () => {
 
   const handleSendOtp = async () => {
     try {
-      const response = await fetch('/api/sendEmail', {
+      const response = await fetch('http://localhost:4000/api/sendEmail', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -26,7 +26,7 @@ const Task = () => {
       };
 
       console.log(JSON.stringify(taskData));
-      const response = await fetch('/api/task/create', {
+      const response = await fetch('http://localhost:4000/api/task/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

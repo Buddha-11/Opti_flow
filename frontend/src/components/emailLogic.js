@@ -5,7 +5,7 @@ export const sendEmail = async (email) => {
     };
   
     try {
-      const res = await fetch('/api/sendEmail', {
+      const res = await fetch('http://localhost:4000/api/sendEmail', {
         method: "POST",
         body: JSON.stringify(dataSend),
         headers: {

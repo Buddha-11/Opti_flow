@@ -63,7 +63,7 @@ const SignupForm = () => {
     const auth = { email, username, password, designation }; // Added designation
 
     try {
-      const response = await fetch('/api/signup', {
+      const response = await fetch('http://localhost:4000/api/signup', {
         method: 'POST',
         body: JSON.stringify(auth),
         headers: {
@@ -98,7 +98,7 @@ const SignupForm = () => {
     }
 
     try {
-      const response = await fetch('/api/sendEmail', {
+      const response = await fetch('http://localhost:4000/api/sendEmail', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

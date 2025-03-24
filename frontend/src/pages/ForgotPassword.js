@@ -27,7 +27,7 @@ const ForgotForm = () => {
     const auth = { email, username, password };
 
     try {
-      const response = await fetch('/api/forgot_password', {
+      const response = await fetch('http://localhost:4000/api/forgot_password', {
         method: 'PATCH',
         body: JSON.stringify(auth),
         headers: {
@@ -57,7 +57,7 @@ const ForgotForm = () => {
 
   const handleSendOtp = async () => {
     try {
-      const response = await fetch('/api/sendEmail', {
+      const response = await fetch('http://localhost:4000/api/sendEmail', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -15,7 +15,7 @@ const AdminLoginForm = () => {
 
     const auth = { email, password }
     try {
-      const response = await fetch('/api/login_admin', {
+      const response = await fetch('http://localhost:4000/api/login_admin', {
         method: 'POST',
         body: JSON.stringify(auth),
         headers: {

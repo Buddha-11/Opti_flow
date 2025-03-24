@@ -61,7 +61,7 @@ const ProfileUpdate = () => {
     const updatedProfile = { username, designation, id }; // Use the ID from state
 
     try {
-      const response = await fetch('/api/update_profile', {
+      const response = await fetch('http://localhost:4000/api/update_profile', {
         method: 'PATCH',
         body: JSON.stringify(updatedProfile),
         headers: {
